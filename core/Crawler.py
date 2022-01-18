@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 # other core module
 from core.Request import Request
+from core.Logging import set_start_log
 
 class Crawler(Request):
 
@@ -25,5 +26,6 @@ class Crawler(Request):
 
     # 크롤링 하는 메인 부분
     def crawler_main(self):
+        set_start_log(self.site_name)
         self.parsing_html()
         self.save_target_data()

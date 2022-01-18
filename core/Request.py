@@ -67,4 +67,4 @@ class Request():
         except requests.exceptions.TooManyRedirects: 
             set_log(f"{self.site_name} get_html error: 요청 거부 당함", "error")
         except Exception as e: 
-            set_log(f"{self.site_name} get_html error: {e}, {type(e).__name__}, {type(e)} AT", "error")
+            set_log(f"{self.site_name} get_html error: {e}, {type(e).__name__}, {type(e)}", "error")
