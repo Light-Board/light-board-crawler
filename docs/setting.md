@@ -101,6 +101,9 @@
         - path : `"/export"`
         - param
             - `keyword`
+- DNS 신청
+    - 무료 DNS 찾기
+    - 아니면, 걍 ip로 제출하던지?
 <br/>
 
 
