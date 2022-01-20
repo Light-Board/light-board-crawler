@@ -5,7 +5,7 @@
 - 사용
     ```
     $ crontab -e
-    $ 10 * * * * {execute_file_path}/main.py
+    $ */20 * * * * {execute_file_path}/main.py
     ```
     - crontab 로그 남길 것인지 고민 > 주기적으로 로그 삭제하는 crontab도 등록해야 함
 - 특이사항
@@ -49,7 +49,7 @@
 - schema
     - 스키마 이름 : crawler
 - table
-    - keyword 
+    - keyword (deprecate)
         - 키워드 목록 관리
         ```
             CREATE TABLE IF NOT EXISTS `crawler`.`keyword` (
@@ -58,17 +58,20 @@
              ENGINE = InnoDB
              DEFAULT CHARACTER SET = utf8;
         ```
+        - 코드 상에서 배열로 키워드 관리
     - job
         - 채용 정보 관리
+            - id는 'stackoverflow-{jobid}' 와 같은 형식으로 관리
         ```
             CREATE TABLE IF NOT EXISTS `crawler`.`job` (
+             `id` CHAR(200) NOT NULL,
+             `title` VARCHAR(300) NOT NULL,
+             `company` VARCHAR(300),
+             `skill` VARCHAR(300),
+             `location` VARCHAR(300) NOT NULL,
+             `pay` VARCHAR(100) NOT NULL,
              `link` VARCHAR(1000) NOT NULL,
-             `title` VARCHAR(100) NOT NULL,
-             `company` VARCHAR(1000),
-             `skill` VARCHAR(1000),
-             `location` VARCHAR(1000) NOT NULL,
-             `pay` VARCHAR(1000) NOT NULL,     
-             PRIMARY KEY (`link`))
+             PRIMARY KEY (`id`))
              ENGINE = InnoDB
              DEFAULT CHARACTER SET = utf8;
         ```
