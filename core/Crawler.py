@@ -1,10 +1,6 @@
-
-# python module
-from bs4 import BeautifulSoup
-
-# other core module
-from core.Request import Request
 from core.Logging import set_start_log
+from core.Request import Request
+
 
 class Crawler(Request):
 
@@ -12,20 +8,18 @@ class Crawler(Request):
     def __init__(self, site_name, url) -> None:
         super().__init__(site_name, url)
 
-
     # HTML 파일 data parsing
     def parsing_html(self, **kwargs):
+        set_start_log(self.site_name)
+
         headers = self.get_headers(**kwargs)
         html = self.get_html("GET", headers, "")
+        return html
 
-
-    # 저장 필요한 데이터 핸들링 - DB or Static file
-    def save_target_data(self):
+    def get_last_page(self, keyword: str) -> int:
+        """Overrides get_last_page()"""
         pass
-    
 
-    # 크롤링 하는 메인 부분
-    def crawler_main(self):
-        set_start_log(self.site_name)
-        self.parsing_html()
-        self.save_target_data()
+    def extract_jobs(self, keyword: str, last_page: int) -> list:
+        """Overrides extract_jobs()"""
+        pass

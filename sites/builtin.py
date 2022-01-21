@@ -1,22 +1,22 @@
 from core.Crawler import Crawler
 
 
-class StackOverFlow(Crawler):
+class BuiltIn(Crawler):
 
     def __init__(self):
-        super().__init__("stack_overflow", "https://stackoverflow.com/jobs")
-        self.origin_url = "https://stackoverflow.com/jobs"
+        super().__init__("builtin", "https://builtin.com/jobs")
+        self.origin_url = "https://builtin.com/jobs"
 
     def get_last_page(self, keyword):
-        self.set_url(f"{self.origin_url}?q={keyword}")
+        self.set_url(f"{self.origin_url}?search={keyword}")
         print(self.url)
         html = self.parsing_html()
-        pages_link = html.find("div", {"class": "s-pagination"})
-        if pages_link:
-            pages = pages_link.find_all("a")
-            return int(pages[-2].get_text(strip=True))
-        else:
-            return 1
+
+        print(html)
+        # pages = html.find("ul", {"class": "paginate"})
+        # print(pages)
+        # last_page = pages[-2].get_text(strip=True)
+        return 1
 
     def extract_job(self, html):
         job_id = html["data-jobid"]
@@ -41,13 +41,14 @@ class StackOverFlow(Crawler):
         jobs = []
 
         for page in range(last_page):
-            print(f"Scrapping SO Page : {page}")
-
-            self.set_url(f"{self.origin_url}?q={keyword}&pg={page + 1}")
+            print(f"Scrapping Dice Page : {page}")
+            self.set_url(f"{self.origin_url}?q={keyword}&page={page + 1}&pageSize={LIMIT}")
             html = self.parsing_html()
-            results = html.find_all("div", {"class": "-job"})
-            for result in results:
-                job = self.extract_job(result)
-                jobs.append(job)
+            results = html.find_all("dhi-search-card")
+            print(results)
+            # for result in results:
+            #     job = self.extract_job(result)
+            #     jobs.append(job)
 
         return jobs
+
