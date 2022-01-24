@@ -54,6 +54,7 @@ class Indeed(Crawler):
 
         for page in range(last_page):
             print(f"Scrapping Indeed Page : {page}")
+            
             self.set_url(f"{self.origin_url}?q={keyword}&start={page * LIMIT}")
             html = self.parsing_html()
             jobs_link = html.find_all("a", {"class": "tapItem"})

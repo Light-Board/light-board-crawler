@@ -1,3 +1,4 @@
+from core.util import csv_util
 from sites.stack_overflow import StackOverFlow
 from sites.indeed import Indeed
 from sites.dice import Dice
@@ -9,11 +10,11 @@ if __name__ == "__main__":
 
     stack_overflow_crawler = StackOverFlow()
     indeed_crawler = Indeed()
+    dice_crawler = Dice()
 
     '''
     # 각 사이트 Crawler 인스턴스 생성
     builtin_crawler = BuiltIn()
-    dice_crawler = Dice()
     '''
 
     # 테스트 코드
@@ -25,8 +26,12 @@ if __name__ == "__main__":
     # (indeed 구현 완)
     indeed_last_page = indeed_crawler.get_last_page('python')
     indeed_jobs = indeed_crawler.extract_jobs('python', 1)
+    
+    dice_jobs = dice_crawler.extract_jobs("python", 5)
 
-    print(stack_overflow_jobs + indeed_jobs)
+
+    # print(stack_overflow_jobs + indeed_jobs)
+    print(dice_jobs)
 
     '''
     # (builtin 구현 진행)

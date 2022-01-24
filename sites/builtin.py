@@ -34,8 +34,14 @@ class BuiltIn(Crawler):
             skill_set = []
 
         # pay 정보 없음
-        return {"id": primary_id, "title": title, "company": company, "location": location,
-                "link": f"{self.origin_url}/{job_id}", "skill_set": skill_set}
+        return {
+            "id": primary_id, 
+            "title": title, 
+            "company": company, 
+            "location": location,
+            "link": f"{self.origin_url}/{job_id}", 
+            "skill_set": skill_set
+        }
 
     def extract_jobs(self, keyword, last_page):
         jobs = []

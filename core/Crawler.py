@@ -11,7 +11,6 @@ class Crawler(Request):
     # HTML 파일 data parsing
     def parsing_html(self, **kwargs):
         set_start_log(self.site_name)
-
         headers = self.get_headers(**kwargs)
         html = self.get_html("GET", headers, "")
         return html

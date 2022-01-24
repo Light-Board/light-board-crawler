@@ -7,6 +7,7 @@ class StackOverFlow(Crawler):
         super().__init__("stack_overflow", "https://stackoverflow.com/jobs")
         self.origin_url = "https://stackoverflow.com/jobs"
 
+
     def get_last_page(self, keyword):
         self.set_url(f"{self.origin_url}?q={keyword}")
         print(self.url)
@@ -17,6 +18,7 @@ class StackOverFlow(Crawler):
             return int(pages[-2].get_text(strip=True))
         else:
             return 1
+
 
     def extract_job(self, html):
         job_id = html["data-jobid"]
@@ -34,16 +36,23 @@ class StackOverFlow(Crawler):
             skill_set = []
 
         # pay 정보 없음
-        return {"id": primary_id, "title": title, "company": company, "location": location,
-                "link": f"{self.origin_url}/{job_id}", "skill_set": skill_set}
+        return {
+            "id": primary_id, 
+            "title": title, 
+            "company": company, 
+            "location": location,
+            "link": f"{self.origin_url}/{job_id}", 
+            "skill_set": skill_set
+        }
+
 
     def extract_jobs(self, keyword, last_page):
-        jobs = []
+        jobs = list()
 
-        for page in range(last_page):
+        for page in range(1, last_page + 1):
             print(f"Scrapping SO Page : {page}")
 
-            self.set_url(f"{self.origin_url}?q={keyword}&pg={page + 1}")
+            self.set_url(f"{self.origin_url}?q={keyword}&pg={page}")
             html = self.parsing_html()
             results = html.find_all("div", {"class": "-job"})
             for result in results:
