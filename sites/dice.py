@@ -1,8 +1,5 @@
 from core.Crawler import Crawler
 
-LIMIT = 100
-
-
 class Dice(Crawler):
 
     def __init__(self):

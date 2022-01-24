@@ -2,6 +2,7 @@ from core.util import csv_util
 from sites.stack_overflow import StackOverFlow
 from sites.indeed import Indeed
 from sites.dice import Dice
+from sites.flexjobs import FlexJobs
 from sites.builtin import BuiltIn
 
 FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
@@ -11,6 +12,7 @@ if __name__ == "__main__":
     stack_overflow_crawler = StackOverFlow()
     indeed_crawler = Indeed()
     dice_crawler = Dice()
+    flexjobs_crawler = FlexJobs()
 
     '''
     # 각 사이트 Crawler 인스턴스 생성
@@ -26,9 +28,10 @@ if __name__ == "__main__":
     # (indeed 구현 완)
     indeed_last_page = indeed_crawler.get_last_page('python')
     indeed_jobs = indeed_crawler.extract_jobs('python', 1)
-    
-    dice_jobs = dice_crawler.extract_jobs("python", 5)
 
+    # hw
+    dice_jobs = dice_crawler.extract_jobs("python", 5)
+    flexjobs_jobs = flexjobs_crawler.extract_jobs("python", 3)
 
     print("==================================================================")
     print(stack_overflow_jobs)
@@ -37,6 +40,7 @@ if __name__ == "__main__":
     print("==================================================================")
     print(dice_jobs)
     print("==================================================================")
+    print(flexjobs_jobs)
 
     '''
     # (builtin 구현 진행)
