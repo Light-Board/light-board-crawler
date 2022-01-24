@@ -52,7 +52,7 @@ class Indeed(Crawler):
     def extract_jobs(self, keyword, last_page):
         jobs = []
 
-        for page in range(last_page):
+        for page in range(1, last_page + 1):
             print(f"Scrapping Indeed Page : {page}")
             
             self.set_url(f"{self.origin_url}?q={keyword}&start={page * LIMIT}")

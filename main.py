@@ -30,8 +30,13 @@ if __name__ == "__main__":
     dice_jobs = dice_crawler.extract_jobs("python", 5)
 
 
-    # print(stack_overflow_jobs + indeed_jobs)
+    print("==================================================================")
+    print(stack_overflow_jobs)
+    print("==================================================================")
+    print(indeed_jobs)
+    print("==================================================================")
     print(dice_jobs)
+    print("==================================================================")
 
     '''
     # (builtin 구현 진행)

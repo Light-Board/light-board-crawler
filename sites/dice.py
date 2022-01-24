@@ -19,6 +19,7 @@ class Dice(Crawler):
             "x-api-key": "1YAt0R9wBg4WfsF9VB2778F5CHLAPMVW3WAZcKd8",
         }
         querystring = {
+            "q":f"{kwargs.get('search', '')}",
             "countryCode2":"US","radius":"30","radiusUnit":"mi","page":f"{kwargs.get('page', '1')}","pageSize":"20",
             "facets":"employmentType|postedDate|workFromHomeAvailability|employerType|easyApply|isRemote",
             "fields":"id|jobId|summary|title|postedDate|modifiedDate|jobLocation.displayName|detailsPageUrl|salary|clientBrandId|companyPageUrl|companyLogoUrl|positionId|companyName|employmentType|isHighlighted|score|easyApply|employerType|workFromHomeAvailability|isRemote",
@@ -48,7 +49,7 @@ class Dice(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            target_data_list = self.parsing_html(page=page)
+            target_data_list = self.parsing_html(search=keyword, page=page)
             print(f"Scrapping DICE Page : {page}")
 
             for target_data in target_data_list:
