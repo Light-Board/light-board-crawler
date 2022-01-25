@@ -3,7 +3,7 @@ from core.Crawler import Crawler
 class FlexJobs(Crawler):
 
     def __init__(self):
-        super().__init__("dice", "https://www.flexjobs.com/search")
+        super().__init__("flexjobs", "https://www.flexjobs.com/search")
         self.origin_url = "https://www.flexjobs.com"
 
 
@@ -31,7 +31,7 @@ class FlexJobs(Crawler):
             return_dict = dict()
 
             try:
-                return_dict['id'] = li.get('data-job')
+                return_dict['id'] = f"{self.site_name}-{li.get('data-job')}"
                 return_dict['title'] = li.get('data-title')
                 return_dict['location'] = li.find('div', {'class':'job-locations'}).get_text().strip()
                 return_dict['link'] = f"{self.origin_url}{li.get('data-url')}"

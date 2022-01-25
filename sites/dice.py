@@ -32,7 +32,7 @@ class Dice(Crawler):
     # 
     def extract_job(self, target_data):
         return {
-            'id': target_data.get('id', "null"),
+            'id': f"{self.site_name}-{target_data.get('id', 'null')}",
             'title': target_data.get('title', "null"), 
             'company': target_data.get('companyName', "null"),
             'location': "null" if target_data.get('jobLocation', "null") == "null" else target_data.get('jobLocation').get('displayName'), 
