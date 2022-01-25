@@ -15,13 +15,19 @@ class Indeed(Crawler):
         pagination = html.find("div", {"class": "pagination"})
 
         links = pagination.find_all('a')
-        pages = []
-        for link in links[:-1]:
-            pages.append(int(link.string))
+        last_button = links[-1]["aria-label"]
+        current_last_page = 1
 
-        max_page = pages[-1]
+        while last_button == "Next":
+            current_last_page = int(links[-2].string)
+            self.set_url(f"{self.origin_url}?q={keyword}&limit={LIMIT}&start={current_last_page * LIMIT}")
+            print(self.url)
+            html = self.parsing_html()
+            pagination = html.find("div", {"class": "pagination"})
+            links = pagination.find_all('a')
+            last_button = links[-1]["aria-label"]
 
-        return max_page
+        return int(current_last_page)
 
     def extract_job(self, job_id, html):
         data = html.find("td", {"class": "resultContent"})
