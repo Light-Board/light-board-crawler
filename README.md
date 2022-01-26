@@ -16,11 +16,6 @@ pip install -r requirements_v(최신).txt
 
 ```
 
-## core class detail 
-
-- 쏼라 쏼라 
-
-
 ---
 
 ## Test running
@@ -30,3 +25,59 @@ pip install -r requirements_v(최신).txt
 source .venv/bin/activate
 python main.py
 ```
+
+---
+
+## Daily ToDo
+> 2022.01.26 meet
+
+1. last_page 어떻게 구할 것인지
+    - 각 키워드 별로 페이지 수 구하고 단발 배치성
+    - 최초 크롤링 시 page마다 sleep 주고 last page까지 가보기
+
+
+2. 첫 페이지만 크롤링하는 파일이랑, 라스트 페이지까지 모두 크롤링하는 파일이랑 분리 필요 **[완]**
+    - 메인으로 분리해서, 단발 배치성 메인과 크론탭 첫 페이지
+    - 메인 파일 완성하기
+
+
+3. python 경량 서버 구축
+    - web server(nginx, 80 port)
+        - /api/ -> restapi (3000)
+        - /media/ -> file 접근
+    - BE flask restapi (3000 port) / 하단에 API end point List / [27일까지 Flask 세영]
+        - /api/search?keyward={}&page={}
+        - /api/export?keyward={}&type={}
+            - filename: keyward-createdat-random_seq.type
+            - csv, json
+            - DB에서 "keyward = site" query -> 결과 모두 추출
+        - jwt + OAuth [option]
+
+
+4. front단 구축 [27일까지 뼈대만 현우]
+    - bootstrap 4 / vanilla javascript
+    - SPA
+    - html의 환장의 콜라보 
+
+
+5. DB 연동 [현우]
+    - mongodb / pymongo: "ORM" -> "MVC" / model
+    - 어떤 데이터를 저장할지 / 단일 collection 
+    - "id, title, location, link" : 전체 공통
+    - site(출처), created_at
+    - id를 index로 잡고 -> 기본이 ObjectId
+    - 하기 내용은 detail 정보에 추가해서 보여주기 
+        - [company] flexjobs만 없음
+        - [skillset] stack-overflow만 있음
+
+
+6. 크론탭 설정
+    - 데몬 프로세스
+    - */20 * * * * run_shell.sh
+    - cd + venv ~ active + nohup python 
+    - logging -> 관리 대상 수준은 아닌듯
+
+
+7. infra
+    - server 구축
+    - DNS 오또케? free dns 있으면 쓰고 없으면 재끼고
