@@ -3,7 +3,8 @@ from crawler.sites.indeed import Indeed
 from crawler.sites.dice import Dice
 from crawler.sites.flexjobs import FlexJobs
 
-FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
+# FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
+FIXED_KEYWORD = ["python"]
 
 if __name__ == "__main__":
 
