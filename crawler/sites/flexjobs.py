@@ -6,6 +6,16 @@ class FlexJobs(Crawler):
         super().__init__("flexjobs", "https://www.flexjobs.com/search")
         self.origin_url = "https://www.flexjobs.com"
 
+    def get_last_page(self, keyword):
+        self.set_url(f"{self.origin_url}/search?page=2&search={keyword}")
+        print(self.url)
+        html = self.parsing_html()
+        pagination = html.find("ul", {"class": "pagination"})
+        links = pagination.find_all('li')
+        last_page = links[-2].string
+        print(last_page)
+        return int(last_page)
+
 
     # 오버라이딩
     def parsing_html(self, **kwargs):
