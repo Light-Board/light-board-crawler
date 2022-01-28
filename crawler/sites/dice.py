@@ -8,15 +8,8 @@ class Dice(Crawler):
         self.origin_url = "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search"
 
     def get_last_page(self, keyword):
-        self.set_url(f"{self.origin_url}/search?page=2&q={keyword}")
-        print(self.url)
-        html = self.parsing_html()
-        print(html)
-        pagination = html.find("ul", {"class": "pagination"})
-        links = pagination.find_all('li')
-        last_page = links[-2].string
-        print(last_page)
-        return int(last_page)
+        meta = self.parsing_html(search=keyword)['meta']
+        return int(meta['pageCount'])
 
     # 오버라이딩
     def parsing_html(self, **kwargs):
@@ -35,8 +28,9 @@ class Dice(Crawler):
             "eid":"a6zd7NUgR0Wy8Tzf36TS2Q_|Sh_4hXkUSsuaDyYXXmPLAQ_2"
         }        
         headers = self.get_headers(**header_append_dict)
-        result_json = self.get_html("GET", headers, "", querystring=querystring, is_json=True)
-        return result_json['data']
+
+        return self.get_html("GET", headers, "", querystring=querystring, is_json=True)
+
 
 
 
@@ -57,7 +51,7 @@ class Dice(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            target_data_list = self.parsing_html(search=keyword, page=page)
+            target_data_list = self.parsing_html(search=keyword, page=page)['data']
             print(f"Scrapping DICE Page : {page}")
 
             for target_data in target_data_list:
