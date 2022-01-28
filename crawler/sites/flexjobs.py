@@ -8,13 +8,10 @@ class FlexJobs(Crawler):
         self.origin_url = "https://www.flexjobs.com"
 
     def get_last_page(self, keyword):
-        self.set_url(f"{self.origin_url}/search?search={keyword}")
-        print(self.url)
-        html = self.parsing_html()
+        html = self.parsing_html(search=keyword, page=1)
         pagination = html.find("ul", {"class": "pagination"})
         links = pagination.find_all('li')
         last_page = links[-2].string
-        print(last_page)
         return int(last_page)
 
 

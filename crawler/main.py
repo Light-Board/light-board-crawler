@@ -1,12 +1,9 @@
-from crawler.core.util import csv_util
 from crawler.sites.stack_overflow import StackOverFlow
 from crawler.sites.indeed import Indeed
 from crawler.sites.dice import Dice
 from crawler.sites.flexjobs import FlexJobs
-from crawler.sites.builtin import BuiltIn
 
-# FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
-FIXED_KEYWORD = ["python"]
+FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
 
 if __name__ == "__main__":
 
