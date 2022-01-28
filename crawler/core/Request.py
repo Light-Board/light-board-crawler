@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from core.Logging import (setup_log, set_log)
+from crawler.core.Logging import (setup_log, set_log)
 
 
 class Request:

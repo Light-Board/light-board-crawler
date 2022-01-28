@@ -1,4 +1,5 @@
-from core.Crawler import Crawler
+from crawler.core.Crawler import Crawler
+
 
 class FlexJobs(Crawler):
 

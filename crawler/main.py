@@ -1,9 +1,9 @@
-from core.util import csv_util
-from sites.stack_overflow import StackOverFlow
-from sites.indeed import Indeed
-from sites.dice import Dice
-from sites.flexjobs import FlexJobs
-from sites.builtin import BuiltIn
+from crawler.core.util import csv_util
+from crawler.sites.stack_overflow import StackOverFlow
+from crawler.sites.indeed import Indeed
+from crawler.sites.dice import Dice
+from crawler.sites.flexjobs import FlexJobs
+from crawler.sites.builtin import BuiltIn
 
 FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
 
@@ -22,25 +22,27 @@ if __name__ == "__main__":
     # 테스트 코드
 
     # (stack_overflow 구현 완)
-    stack_overflow_last_page = stack_overflow_crawler.get_last_page('python')
-    stack_overflow_jobs = stack_overflow_crawler.extract_jobs("python", 1)
+    # stack_overflow_last_page = stack_overflow_crawler.get_last_page('python')
+    # stack_overflow_jobs = stack_overflow_crawler.extract_jobs("python", 1)
 
     # (indeed 구현 완)
-    indeed_last_page = indeed_crawler.get_last_page('python')
-    indeed_jobs = indeed_crawler.extract_jobs('python', 1)
+    # indeed_last_page = indeed_crawler.get_last_page('python')
+    # indeed_jobs = indeed_crawler.extract_jobs('python', 1)
 
     # hw
-    dice_jobs = dice_crawler.extract_jobs("python", 5)
-    flexjobs_jobs = flexjobs_crawler.extract_jobs("python", 3)
+    # dice_jobs = dice_crawler.extract_jobs("python", 5)
+    # flexjobs_jobs = flexjobs_crawler.extract_jobs("python", 3)
+
+    dice_crawler.get_last_page('python')
 
     print("==================================================================")
-    print(stack_overflow_jobs)
+    # print(stack_overflow_jobs)
     print("==================================================================")
-    print(indeed_jobs)
+    # print(indeed_jobs)
     print("==================================================================")
-    print(dice_jobs)
+    # print(dice_jobs)
     print("==================================================================")
-    print(flexjobs_jobs)
+    # print(flexjobs_jobs)
 
     '''
     # (builtin 구현 진행)

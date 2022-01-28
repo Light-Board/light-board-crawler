@@ -1,4 +1,5 @@
-from core.Crawler import Crawler
+from crawler.core.Crawler import Crawler
+
 
 class Dice(Crawler):
 
@@ -6,6 +7,16 @@ class Dice(Crawler):
         super().__init__("dice", "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search")
         self.origin_url = "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search"
 
+    def get_last_page(self, keyword):
+        self.set_url(f"{self.origin_url}/search?page=2&q={keyword}")
+        print(self.url)
+        html = self.parsing_html()
+        print(html)
+        pagination = html.find("ul", {"class": "pagination"})
+        links = pagination.find_all('li')
+        last_page = links[-2].string
+        print(last_page)
+        return int(last_page)
 
     # 오버라이딩
     def parsing_html(self, **kwargs):
