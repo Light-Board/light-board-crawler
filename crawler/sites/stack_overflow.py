@@ -1,5 +1,5 @@
-from core.Crawler import Crawler
-
+from crawler.core.Crawler import Crawler
+import time
 
 class StackOverFlow(Crawler):
 
@@ -58,5 +58,7 @@ class StackOverFlow(Crawler):
             for result in results:
                 job = self.extract_job(result)
                 jobs.append(job)
+
+            time.sleep(3)
 
         return jobs

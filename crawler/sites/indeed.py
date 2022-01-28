@@ -1,4 +1,5 @@
-from core.Crawler import Crawler
+from crawler.core.Crawler import Crawler
+import time
 
 LIMIT = 50
 
@@ -68,5 +69,7 @@ class Indeed(Crawler):
                 job_id = job_data["data-jk"]
                 job_detail = job_data.find("div", {"class": "job_seen_beacon"})
                 jobs.append(self.extract_job(job_id, job_detail))
+
+            time.sleep(3)
 
         return jobs

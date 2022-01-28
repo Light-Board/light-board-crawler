@@ -1,10 +1,18 @@
-from core.Crawler import Crawler
+from crawler.core.Crawler import Crawler
+import time
 
 class FlexJobs(Crawler):
 
     def __init__(self):
         super().__init__("flexjobs", "https://www.flexjobs.com/search")
         self.origin_url = "https://www.flexjobs.com"
+
+    def get_last_page(self, keyword):
+        html = self.parsing_html(search=keyword, page=1)
+        pagination = html.find("ul", {"class": "pagination"})
+        links = pagination.find_all('li')
+        last_page = links[-2].string
+        return int(last_page)
 
 
     # 오버라이딩
@@ -41,15 +49,6 @@ class FlexJobs(Crawler):
             return_list.append(return_dict)
         
         return return_list
-        # return {
-        #     'id': target_data.get('id', "null"),
-        #     'title': target_data.get('title', "null"), 
-        #     'company': target_data.get('companyName', "null"),
-        #     'location': "null" if target_data.get('jobLocation', "null") == "null" else target_data.get('jobLocation').get('displayName'), 
-        #     'link': target_data.get('detailsPageUrl', "null")
-        #     # skill_set 관련 내용은 서머리에 있음,, 해당 서머리는 long text
-        # }
-
 
     # 
     def extract_jobs(self, keyword, last_page):
@@ -59,5 +58,7 @@ class FlexJobs(Crawler):
             print(f"Scrapping FlexJobs Page : {page}")
             target_html = self.parsing_html(search=keyword, page=page)
             jobs += (self.extract_job(target_html))
+
+            time.sleep(3)
                 
         return jobs

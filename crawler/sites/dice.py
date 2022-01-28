@@ -1,4 +1,6 @@
-from core.Crawler import Crawler
+from crawler.core.Crawler import Crawler
+import time
+
 
 class Dice(Crawler):
 
@@ -6,6 +8,9 @@ class Dice(Crawler):
         super().__init__("dice", "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search")
         self.origin_url = "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search"
 
+    def get_last_page(self, keyword):
+        meta = self.parsing_html(search=keyword)['meta']
+        return int(meta['pageCount'])
 
     # 오버라이딩
     def parsing_html(self, **kwargs):
@@ -24,8 +29,9 @@ class Dice(Crawler):
             "eid":"a6zd7NUgR0Wy8Tzf36TS2Q_|Sh_4hXkUSsuaDyYXXmPLAQ_2"
         }        
         headers = self.get_headers(**header_append_dict)
-        result_json = self.get_html("GET", headers, "", querystring=querystring, is_json=True)
-        return result_json['data']
+
+        return self.get_html("GET", headers, "", querystring=querystring, is_json=True)
+
 
 
 
@@ -46,10 +52,12 @@ class Dice(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            target_data_list = self.parsing_html(search=keyword, page=page)
+            target_data_list = self.parsing_html(search=keyword, page=page)['data']
             print(f"Scrapping DICE Page : {page}")
 
             for target_data in target_data_list:
                 jobs.append(self.extract_job(target_data))
+
+            time.sleep(3)
                 
         return jobs
