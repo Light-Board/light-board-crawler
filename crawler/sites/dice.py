@@ -1,4 +1,5 @@
 from crawler.core.Crawler import Crawler
+import time
 
 
 class Dice(Crawler):
@@ -56,5 +57,7 @@ class Dice(Crawler):
 
             for target_data in target_data_list:
                 jobs.append(self.extract_job(target_data))
+
+            time.sleep(3)
                 
         return jobs
