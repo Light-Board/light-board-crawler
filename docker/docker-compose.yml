@@ -34,11 +34,10 @@ services:
     env_file: #environment
       - ../mongodb/.env
     # healthcheck:
-    #   test: echo 'db.runCommand("ping").ok' | mongo 0.0.0.0:28018/test --quiet
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   restart: unless-stopped
+    # test: "echo 'db.runCommand(\"ping\").ok'"
+    # interval: 5s
+    # timeout: 5s
+    # retries: 3
     networks:
       - proxynet
 networks:
