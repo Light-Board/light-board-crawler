@@ -1,8 +1,20 @@
-from flask import Flask, request, send_file
-from util.file_util import save_csv, save_json
+from flask import (Flask, request, send_file, json)
+from util.file_util import (save_csv, save_json)
 import datetime
 
 app = Flask("SuperScrapper")
+
+
+# BE TEST PING 
+@app.route("/api/ping", methods=['GET'])
+def testPing():
+    response = app.response_class(
+        status=200,
+        response=json.dumps({"test": "ok"}),
+        mimetype='application/json'
+    )
+    return response
+
 
 
 @app.route("/api/search", methods=['GET'])
