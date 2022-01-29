@@ -1,4 +1,4 @@
-from crawler.core.Crawler import Crawler
+from core.Crawler import Crawler
 import time
 
 

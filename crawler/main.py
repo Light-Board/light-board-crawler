@@ -1,7 +1,7 @@
-from crawler.sites.stack_overflow import StackOverFlow
-from crawler.sites.indeed import Indeed
-from crawler.sites.dice import Dice
-from crawler.sites.flexjobs import FlexJobs
+from sites.stack_overflow import StackOverFlow
+from sites.indeed import Indeed
+from sites.dice import Dice
+from sites.flexjobs import FlexJobs
 
 FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
 

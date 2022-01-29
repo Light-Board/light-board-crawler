@@ -1,5 +1,5 @@
-from crawler.core.Logging import set_start_log
-from crawler.core.Request import Request
+from core.Logging import set_start_log
+from core.Request import Request
 
 
 class Crawler(Request):

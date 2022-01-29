@@ -1,5 +1,5 @@
 from flask import Flask, request, send_file
-from backEnd.src.util.file_util import save_csv, save_json
+from util.file_util import save_csv, save_json
 import datetime
 
 app = Flask("SuperScrapper")
@@ -50,4 +50,4 @@ def exportJobs():
         return send_file(f"{file_name}.json")
 
 
-app.run(port=8080)
+app.run(host='0.0.0.0', port=8080)
