@@ -7,6 +7,9 @@ from sites.flexjobs import FlexJobs
 # log
 from core.Logging import Logging
 
+# util
+import time
+
 FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
 
 if __name__ == "__main__":
@@ -23,6 +26,7 @@ if __name__ == "__main__":
     # list of data
     all_jobs = []
 
+    start_time = time.time()
     for keyword in FIXED_KEYWORD:
         main_logger.set_start_log(f"main : {keyword} crawl total page start")
         stack_overflow_last_page = stack_overflow_crawler.get_last_page(keyword)
@@ -43,4 +47,6 @@ if __name__ == "__main__":
 
         all_jobs += (stack_overflow_jobs + indeed_jobs, dice_jobs, flexjobs_jobs)
 
+    end_time = time.gmtime(time.time())
+    main_logger.set_log(f"main crawl total page crawl time: {end_time - start_time}")    
     print(len(all_jobs))

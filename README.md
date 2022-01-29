@@ -107,6 +107,9 @@ python main.py
     - 하기 내용은 detail 정보에 추가해서 보여주기 
         - [company] flexjobs만 없음
         - [skillset] stack-overflow만 있음
+    - collection 어떻게 나눌지 -> keyword 별로 나누는게 좋을 듯? 
+        - 동적 collection name 받아오기
+        - total, last_page DB 저장 로직 따로두기
 
 3. 크론탭 설정
     - 데몬 프로세스
