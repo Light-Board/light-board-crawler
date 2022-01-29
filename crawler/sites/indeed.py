@@ -5,13 +5,12 @@ LIMIT = 50
 
 class Indeed(Crawler):
 
-    def __init__(self):
-        super().__init__("indeed", "https://www.indeed.com/jobs")
+    def __init__(self, logger):
+        super().__init__("indeed", "https://www.indeed.com/jobs", logger)
         self.origin_url = "https://www.indeed.com/jobs"
 
     def get_last_page(self, keyword):
         self.set_url(f"{self.origin_url}?q={keyword}&limit={LIMIT}")
-        print(self.url)
         html = self.parsing_html()
         pagination = html.find("div", {"class": "pagination"})
 
@@ -22,7 +21,6 @@ class Indeed(Crawler):
         while last_button == "Next":
             current_last_page = int(links[-2].string)
             self.set_url(f"{self.origin_url}?q={keyword}&limit={LIMIT}&start={current_last_page * LIMIT}")
-            print(self.url)
             html = self.parsing_html()
             pagination = html.find("div", {"class": "pagination"})
             links = pagination.find_all('a')
@@ -60,8 +58,7 @@ class Indeed(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            print(f"Scrapping Indeed Page : {page}")
-            
+            self.logger.set_log(f"Scrapping Indeed {keyword} Page : {page} crawl")
             self.set_url(f"{self.origin_url}?q={keyword}&start={page * LIMIT}")
             html = self.parsing_html()
             jobs_link = html.find_all("a", {"class": "tapItem"})

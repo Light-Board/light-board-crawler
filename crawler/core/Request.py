@@ -2,16 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from core.Logging import (setup_log, set_log)
-
-
 class Request:
 
     # 생성자
-    def __init__(self, site_name, url) -> None:
+    def __init__(self, site_name, url, logger) -> None:
         self.site_name = site_name
         self.url = url
-        setup_log(site_name)
+        self.logger = logger
 
     # url set
     def set_url(self, url):
@@ -65,14 +62,14 @@ class Request:
             else:
                 return BeautifulSoup(res.content, 'lxml')
         except requests.Timeout:
-            set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
         except requests.exceptions.ProxyError:
-            set_log(f"{self.site_name} get_html error: 프록시 일시 벤 먹음", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: 프록시 일시 벤 먹음", "error")
         except requests.exceptions.ConnectionError:
-            set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
         except requests.exceptions.ChunkedEncodingError:
-            set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: 요청 일시 벤 먹음", "error")
         except requests.exceptions.TooManyRedirects:
-            set_log(f"{self.site_name} get_html error: 요청 거부 당함", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: 요청 거부 당함", "error")
         except Exception as e:
-            set_log(f"{self.site_name} get_html error: {e}, {type(e).__name__}, {type(e)}", "error")
+            self.logger.set_log(f"{self.site_name} get_html error: {e}, {type(e).__name__}, {type(e)}", "error")

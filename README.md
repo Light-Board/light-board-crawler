@@ -91,6 +91,10 @@ python main.py
 <details markdown="1">
 <summary>2022.01.29 meet</summary>
 
+0. 공짜 도메인 설정하기! **[완/현우]**
+    - https://xn--220b31d95hq8o.xn--3e0b707e/
+    - nomad-crawl.kro.kr / www.nomad-crawl.kro.kr
+
 1. front단 완성도 올리기
     - bootstrap 4 / vanilla javascript
 

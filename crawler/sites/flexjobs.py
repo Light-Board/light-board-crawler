@@ -3,8 +3,8 @@ import time
 
 class FlexJobs(Crawler):
 
-    def __init__(self):
-        super().__init__("flexjobs", "https://www.flexjobs.com/search")
+    def __init__(self, logger):
+        super().__init__("flexjobs", "https://www.flexjobs.com/search", logger)
         self.origin_url = "https://www.flexjobs.com"
 
     def get_last_page(self, keyword):
@@ -55,7 +55,7 @@ class FlexJobs(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            print(f"Scrapping FlexJobs Page : {page}")
+            self.logger.set_log(f"Scrapping FlexJobs {keyword} Page : {page} crawl")
             target_html = self.parsing_html(search=keyword, page=page)
             jobs += (self.extract_job(target_html))
 

@@ -3,14 +3,13 @@ import time
 
 class StackOverFlow(Crawler):
 
-    def __init__(self):
-        super().__init__("stack_overflow", "https://stackoverflow.com/jobs")
+    def __init__(self, logger):
+        super().__init__("stack_overflow", "https://stackoverflow.com/jobs", logger)
         self.origin_url = "https://stackoverflow.com/jobs"
 
 
     def get_last_page(self, keyword):
         self.set_url(f"{self.origin_url}?q={keyword}")
-        print(self.url)
         html = self.parsing_html()
         pages_link = html.find("div", {"class": "s-pagination"})
         if pages_link:
@@ -50,8 +49,7 @@ class StackOverFlow(Crawler):
         jobs = list()
 
         for page in range(1, last_page + 1):
-            print(f"Scrapping SO Page : {page}")
-
+            self.logger.set_log(f"Scrapping S.O {keyword} Page : {page} crawl")
             self.set_url(f"{self.origin_url}?q={keyword}&pg={page}")
             html = self.parsing_html()
             results = html.find_all("div", {"class": "-job"})

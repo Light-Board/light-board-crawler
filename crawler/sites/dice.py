@@ -4,8 +4,8 @@ import time
 
 class Dice(Crawler):
 
-    def __init__(self):
-        super().__init__("dice", "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search")
+    def __init__(self, logger):
+        super().__init__("dice", "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search", logger)
         self.origin_url = "https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search"
 
     def get_last_page(self, keyword):
@@ -53,7 +53,7 @@ class Dice(Crawler):
 
         for page in range(1, last_page + 1):
             target_data_list = self.parsing_html(search=keyword, page=page)['data']
-            print(f"Scrapping DICE Page : {page}")
+            self.logger.set_log(f"Scrapping Dice {keyword} Page : {page} crawl")
 
             for target_data in target_data_list:
                 jobs.append(self.extract_job(target_data))
