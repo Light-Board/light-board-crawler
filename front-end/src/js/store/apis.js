@@ -26,7 +26,7 @@ export const getAllFood = async () => {
 
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     else return res
-};
+}
 
 
 
@@ -53,4 +53,4 @@ export const updateFoodClear = async (order, isClear) => {
 
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     else return res
-};
+}

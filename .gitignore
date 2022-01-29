@@ -219,6 +219,12 @@ pip-selfcheck.json
 .history
 .ionide
 
+
+# =============== 도커 관련 커마 이그노어 =============== #
+mongodb/data/*
+mongodb/log/*
+nginx/log/*
+
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,python,venv

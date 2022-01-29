@@ -1,0 +1,46 @@
+version: '3.5'
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ../nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ../nginx/conf.d:/etc/nginx/conf.d
+      - ../front-end:/usr/share/nginx
+      - ../nginx/log:/var/log/nginx
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_PORT=80
+    networks:
+      - proxynet
+  flask-api:
+    image: flask-api
+    ports:
+      - "3000:3000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - proxynet
+  mongodb:
+    image: mongo
+    ports:
+      - "28018:28018"
+    volumes:
+      - ../mongodb/data:/data/db
+      - ../mongodb/cnf:/etc/mongo
+      - ../mongodb/log:/var/log/mongodb
+    entrypoint: ["mongod", "-f", "/etc/mongo/mongod.conf"]
+    # container_name: "docker-mongodb"
+    env_file: #environment
+      - ../mongodb/.env
+    # healthcheck:
+    #   test: echo 'db.runCommand("ping").ok' | mongo 0.0.0.0:28018/test --quiet
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   restart: unless-stopped
+    networks:
+      - proxynet
+networks:
+  proxynet:
+    name: light-board-network

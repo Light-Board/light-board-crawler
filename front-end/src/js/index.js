@@ -4,8 +4,8 @@
 // ======================================================================== //
 //                            IMPORT AREA 
 // ======================================================================== //
-import log from './common/util';
-import {getAllFood, updateFoodClear} from './store/apis';
+import {log} from './common/util.js';
+import {getAllFood, updateFoodClear} from './store/apis.js';
 
 
 // ======================================================================== //
