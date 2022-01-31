@@ -52,12 +52,15 @@ class Dice(Crawler):
         jobs = []
 
         for page in range(1, last_page + 1):
-            target_data_list = self.parsing_html(search=keyword, page=page)['data']
-            self.logger.set_log(f"Scrapping Dice {keyword} Page : {page} crawl")
+            try:
+                target_data_list = self.parsing_html(search=keyword, page=page)['data']
+                self.logger.set_log(f"Scrapping Dice {keyword} Page : {page} crawl")
 
-            for target_data in target_data_list:
-                jobs.append(self.extract_job(target_data))
-
+                for target_data in target_data_list:
+                    jobs.append(self.extract_job(target_data))
+            except Exception:
+                continue
+            
             time.sleep(3)
                 
         return jobs

@@ -4,20 +4,18 @@ from sites.indeed import Indeed
 from sites.dice import Dice
 from sites.flexjobs import FlexJobs
 
-# log
-from core.Logging import Logging
-from core.database.Mongodb import DbCon
-
 # util
 import time
-
-FIXED_KEYWORD = ["python"] #, "php", "java", "golang", "nest", "spring", "react", "vue"]
+from core.Logging import Logging        # log
+from core.database.Mongodb import DbCon # DB
 
 if __name__ == "__main__":
 
     # static
+    DEBUG = True
     main_logger = Logging("main")       # logger
     main_db_con = DbCon(main_logger)    # db connection
+    FIXED_KEYWORD = main_db_con.get_init_data("init_keyword")['keywords']
 
     # site list
     stack_overflow_crawler = StackOverFlow(main_logger)
@@ -39,14 +37,13 @@ if __name__ == "__main__":
         except Exception:
             pass
 
+        # db insert
+        main_db_con.insert_crawler_total_data(keyword, [stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs])
         all_jobs += (stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs)
-
-    # db insert
-    main_db_con.insert_crawler_data(all_jobs)
+        time.sleep(1)
 
     end_time = time.time()
-    main_logger.set_log(f"main crawl first page crawl time: {end_time - start_time}")
-
+    main_logger.set_log(f"main crawl first page crawl time: {end_time - start_time}, total data:{len(all_jobs)}")
 
 
 
