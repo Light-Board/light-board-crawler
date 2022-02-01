@@ -12,16 +12,21 @@ services:
     environment:
       - NGINX_PORT=80
     networks:
-      - proxynet
+      - light-board-net
+    depends_on:
+      - flask-api
   flask-api:
     image: flask-api
     ports:
       - "3000:3000"
     environment:
       - FLASK_ENV=development
+      - MONGO_HOST=mongo
     networks:
-      - proxynet
-  mongodb:
+      - light-board-net
+    depends_on:
+      - mongo
+  mongo:
     image: mongo
     ports:
       - "28018:28018"
@@ -39,7 +44,8 @@ services:
     # timeout: 5s
     # retries: 3
     networks:
-      - proxynet
+      - light-board-net
+
 networks:
-  proxynet:
-    name: light-board-network
+  light-board-net:
+    driver: bridge
