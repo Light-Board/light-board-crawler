@@ -32,9 +32,11 @@ docker-compose -f ./docker-compose.yml -p light-board-app start
 
 # ================================ back-end update 시 빌드 및 배포 실행 ================================ #
 
-docker-compose -f ./docker-compose.yml -p light-board-app down
+# docker-compose -f ./docker-compose.yml -p light-board-app down
+docker-compose -f ./docker-compose.yml -p light-board-app stop
 docker image rm -f flask-api
 cd ../back-end
 docker build . -t flask-api
 cd ../docker
-docker-compose -f ./docker-compose.yml -p light-board-app up -d
+# docker-compose -f ./docker-compose.yml -p light-board-app up -d
+docker-compose -f ./docker-compose.yml -p light-board-app start

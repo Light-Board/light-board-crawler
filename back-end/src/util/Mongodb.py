@@ -1,0 +1,36 @@
+
+# Python module
+import json
+import os
+import time
+from dotenv import load_dotenv
+from pymongo import MongoClient
+
+# 환경변수값 세팅을
+load_dotenv()
+
+class DbCon:
+
+    def __init__(self) -> None:
+        self.main_client = self.get_main_client()
+
+    # get connection
+    def get_main_client(self):
+        port = int(os.environ.get('MONGO_PORT'))
+        user = os.environ.get('MONGO_INITDB_ROOT_USERNAME')
+        password = os.environ.get('MONGO_INITDB_ROOT_PASSWORD')
+        db = os.environ.get('MONGO_INITDB_DATABASE')
+
+        client = MongoClient(
+            'localhost', 
+            port, 
+            connect=False,
+            username=user,
+            password=password,
+            authSource='admin')
+
+        return client[f'{db}']
+
+    # system_data 얻어오기 - 이니셜라이징 데이터
+    def get_init_data(self, _type: str):
+        return self.main_client.system_data.find_one({"type": _type})

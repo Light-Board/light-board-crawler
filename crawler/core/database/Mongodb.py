@@ -71,5 +71,5 @@ class DbCon:
 
 
     # system_data 얻어오기 - 이니셜라이징 데이터
-    def get_init_data(self, type: str):
-        return self.main_client.system_data.find_one({"type": type})
+    def get_init_data(self, _type: str):
+        return self.main_client.system_data.find_one({"type": _type})
