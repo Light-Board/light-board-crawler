@@ -6,6 +6,30 @@
 // ======================================================================== //
 
 /**
+ * @description 모든 키워드 가져오기 
+ * @returns res object
+ */
+ export const getAllKeyword = async () => {
+    const res = await fetch('http://localhost/api/keyword', {
+        method: 'GET',              // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors',               // no-cors, cors, *same-origin
+        cache: 'no-cache',          // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow',         // manual, *follow, error
+        referrer: 'no-referrer',    // no-referrer, *client
+        // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
+    });
+
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    else return res
+}
+
+
+/**
  * @description 모든 food model list 가져오기 
  * @returns res object
  */

@@ -4,8 +4,8 @@
 // ======================================================================== //
 //                            IMPORT AREA 
 // ======================================================================== //
-import {log} from './common/util.js';
-import {getAllFood, updateFoodClear} from './store/apis.js';
+import { log } from './common/util.js';
+import { getAllKeyword, getAllFood, updateFoodClear } from './store/apis.js';
 
 
 // ======================================================================== //
@@ -72,6 +72,16 @@ const addClikEvent = (target) => {
 }
 
 
+// 키워드 버튼 클릭 함수 추기
+const addKeywordBtnEvent = () => {
+    const keywordBtns = document.querySelectorAll('.keyword-btn');
+    keywordBtns.forEach(keywordBtn => {
+        keywordBtn.addEventListener('click', () => {
+            const keyword = keywordBtn.getAttribute('data-keyword');
+            window.location.href = `/api/search?keyword=${keyword}&page=1`
+        });
+    });
+}
 
 // ======================================================================== //
 //                            CALL API AND MAIN 
@@ -94,6 +104,30 @@ const init = () => {
         .catch((error) => {
             console.error(error);
         })
+
+
+    // 1. 키워드 리스트 다 가져오기 
+    getAllKeyword()
+        .then((res) => res.json())
+        .then((res) => {
+            const autoFillBtn = document.getElementById('keyword-options');
+            const keywordBtnDiv = document.getElementById('div-keyword');
+            for (let index = 0; index < res['data']['keywords'].length; index++) {
+                const keyword = res['data']['keywords'][index];
+                autoFillBtn.innerHTML += `
+                    <option value="${keyword}">
+                `;
+                keywordBtnDiv.innerHTML += `
+                    <input class="btn btn-success keyword-btn" type="button" data-keyword="${keyword}" value="${keyword}">
+                `;
+            }
+
+            addKeywordBtnEvent();
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+
 }
 
 init();
