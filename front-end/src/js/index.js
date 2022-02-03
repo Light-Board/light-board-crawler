@@ -5,7 +5,7 @@
 //                            IMPORT AREA
 // ======================================================================== //
 import { log } from "./common/util.js";
-import { getAllKeyword, getAllFood, updateFoodClear } from "./store/apis.js";
+import { getAllKeyword, updateFoodClear } from "./store/apis.js";
 
 // ======================================================================== //
 //                            DOM RENDER AREA
