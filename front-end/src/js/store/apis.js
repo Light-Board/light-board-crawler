@@ -4,13 +4,14 @@
 // ======================================================================== //
 //                            API FETCH LIST 
 // ======================================================================== //
+const server_name = 'http://nomad-crawl.kro.kr'
 
 /**
  * @description 모든 키워드 가져오기 
  * @returns res object
  */
  export const getAllKeyword = async () => {
-    const res = await fetch('http://localhost/api/keyword', {
+    const res = await fetch(`${server_name}/api/keyword`, {
         method: 'GET',              // *GET, POST, PUT, DELETE, etc.
         mode: 'cors',               // no-cors, cors, *same-origin
         cache: 'no-cache',          // *default, no-cache, reload, force-cache, only-if-cached
