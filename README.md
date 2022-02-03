@@ -98,7 +98,7 @@ python main.py
 1. front단 완성도 올리기
     - bootstrap 4 / vanilla javascript
 
-2. 크롤러, 플라스크 DB 연동
+2. 크롤러, 플라스크 DB 연동 **[완/현우]**
     - mongodb / pymongo: "ORM" -> "MVC" / model
     - 어떤 데이터를 저장할지 / 단일 collection 
     - "id, title, location, link" : 전체 공통
@@ -111,10 +111,34 @@ python main.py
         - 동적 collection name 받아오기
         - total, last_page DB 저장 로직 따로두기
 
-3. 크론탭 설정
+3. 크론탭 설정 **[완/현우 등록만하면 끝]**
     - 데몬 프로세스
     - */20 * * * * run_shell.sh
     - cd + venv ~ active + nohup python 
     - logging -> 관리 대상 수준은 아닌듯
+
+</details>
+
+
+
+<details markdown="1">
+<summary>2022.02.03 meet</summary>
+
+1. front단 완성도 올리기
+    - 기획 및 설계 완료, 작업 착수
+    - bootstrap 4 / vanilla javascript
+
+2. 크롤러 기초 데이터 구성하기
+    - model(dict object)에 "heart" key 추가 
+
+3. 따봉 로직
+    - log collection에 ip 존재 여부 체크
+    - 따봉 누른다 -> log collection에 ip + 따봉 누른 데이터 id값, 키워드 값 추가
+    - keyword_jobs에 target id 값에 해당하는 heart 값 ++
+
+4. 키워드 별 따봉 원탑 나열 API
+
+5. 크론탭 설정 **[등록만하면 끝]**
+    - */20 * * * * run_shell.sh
 
 </details>
