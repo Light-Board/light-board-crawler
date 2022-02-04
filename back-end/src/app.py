@@ -6,10 +6,12 @@ import pymongo
 
 # python lib
 from flask import (Flask, request, send_file, json, jsonify)
+from flask_cors import CORS
 import datetime
 
 # static
 app = Flask("SuperScrapper")
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 main_db_con = DbCon() # db connection
 
 
