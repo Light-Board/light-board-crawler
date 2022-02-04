@@ -1,82 +1,59 @@
 // ES5+
-'use strict';
+"use strict";
 
 // ======================================================================== //
-//                            API FETCH LIST 
+//                            API FETCH LIST
 // ======================================================================== //
-const DEBUG = false
-const server_name = (DEBUG) ? 'http://localhost:3000' :'http://nomad-crawl.kro.kr'
+const DEBUG = false;
+const server_name = DEBUG
+  ? "http://localhost:3000"
+  : "http://nomad-crawl.kro.kr";
 
 /**
- * @description 모든 키워드 가져오기 
+ * @description 모든 키워드 가져오기
  * @returns res object
  */
- export const getAllKeyword = async () => {
-    const res = await fetch(`${server_name}/api/keyword`, {
-        method: 'GET',              // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors',               // no-cors, cors, *same-origin
-        cache: 'no-cache',          // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow',         // manual, *follow, error
-        referrer: 'no-referrer',    // no-referrer, *client
-        // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
-    });
+export const getAllKeyword = async () => {
+  const res = await fetch(`${server_name}/api/keyword`, {
+    method: "GET", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, cors, *same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrer: "no-referrer", // no-referrer, *client
+    // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
+  });
 
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    else return res
-}
-
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  else return res;
+};
 
 /**
- * @description 모든 food model list 가져오기 
+ * @description Job 검새 결과 가져오기
  * @returns res object
  */
-export const getAllFood = async () => {
-    const res = await fetch('http://185.162.75.92:3000/baccine', {
-        method: 'GET',              // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors',               // no-cors, cors, *same-origin
-        cache: 'no-cache',          // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow',         // manual, *follow, error
-        referrer: 'no-referrer',    // no-referrer, *client
-        // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
-    });
+export const getSearchResults = async (keyword, page) => {
+  const res = await fetch(
+    `${server_name}/api/search?keyword=${keyword}&page=${page}`,
+    {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, cors, *same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer", // no-referrer, *client
+      // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
+    }
+  );
 
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    else return res
-}
-
-
-
-/**
- * @description 타겟 food model 먹음 상태 업데이트 
- * @param clearType
- * @returns update result - res
- */
-export const updateFoodClear = async (order, isClear) => {
-    const clearTypeUrl = (isClear) ? `http://185.162.75.92:3000/baccine/clear/${order}` : `http://185.162.75.92:3000/baccine/unclear/${order}`;
-    const res = await fetch(`${clearTypeUrl}`, {
-        method: 'PUT',              // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors',               // no-cors, cors, *same-origin
-        cache: 'no-cache',          // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow',         // manual, *follow, error
-        referrer: 'no-referrer',    // no-referrer, *client
-        // body: JSON.stringify(data), // body data type must match "Content-Type" headerF);
-    });
-
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    else return res
-}
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  else return res;
+};
