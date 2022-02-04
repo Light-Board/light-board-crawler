@@ -4,7 +4,8 @@
 // ======================================================================== //
 //                            API FETCH LIST 
 // ======================================================================== //
-const server_name = 'http://nomad-crawl.kro.kr'
+const DEBUG = false
+const server_name = (DEBUG) ? 'http://localhost:3000' :'http://nomad-crawl.kro.kr'
 
 /**
  * @description 모든 키워드 가져오기 

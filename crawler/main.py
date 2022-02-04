@@ -9,14 +9,13 @@ from core.Logging import Logging        # log
 from core.database.Mongodb import DbCon # DB
 import time
 
-# 고정 키워드
-FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
 
 
 if __name__ == "__main__":
     
     # static
     DEBUG = True
+    FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
     main_logger = Logging("main") if DEBUG else Logging("main DEBUG")
     main_db_con = DbCon(main_logger)                               # db connection
     if not DEBUG: main_db_con.init_default_keyword(FIXED_KEYWORD)  # init keyword 
@@ -56,7 +55,8 @@ if __name__ == "__main__":
             # insert data to keyword collection
             print(keyword, stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs)
             print("======================================================")
-            # main_db_con.insert_crawler_total_data(keyword, stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs)
+
+            main_db_con.insert_crawler_total_data(keyword, stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs)
             all_jobs += stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs
             time.sleep(1)
 

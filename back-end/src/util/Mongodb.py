@@ -28,7 +28,8 @@ class DbCon:
             connect=False,
             username=user,
             password=password,
-            authSource='admin')
+            authSource='admin'
+        )
 
         return client[f'{db}']
 

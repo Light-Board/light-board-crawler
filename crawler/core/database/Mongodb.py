@@ -55,6 +55,7 @@ class DbCon:
         self.main_client[f'{keyword}_jobs'].create_index(("id"))         # mongodb collection index
         for job in jobs:
             try:
+                job['recommend'] = 0
                 self.main_client[f'{keyword}_jobs'].insert_one(job)
             except Exception as e:
                 self.logger.set_log(f"insert_crawler_total_data error: {job}, {type(e).__name__}, {type(e)}", "error")

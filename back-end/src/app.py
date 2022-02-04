@@ -16,9 +16,10 @@ main_db_con = DbCon() # db connection
 # BE TEST PING 
 @app.route("/api/ping", methods=['GET'])
 def testPing():
+    req_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     response = app.response_class(
         status=200,
-        response=json.dumps({"test": "ok"}),
+        response=json.dumps({"test": "ok", "request_id": req_ip}),
         mimetype='application/json'
     )
     return response
@@ -71,6 +72,7 @@ def searchJobs():
             }),
             mimetype='application/json'
         )
+
     # 1-2. 존재하지 않는다면, 크롤링 진행 후 긁어온 데이터 DB 저장하고 반환하기 -> 흠 이건 너무 작업이 해비함
     else: 
         response = app.response_class(
@@ -107,5 +109,69 @@ def exportJobs():
         save_json(file_name, jobs)
         return send_file(f"{file_name}.json")
 
+
+# 따봉 누르기
+@app.route("/api/job/<string:job_id>", methods=['PUT', 'PATCH'])
+def updateJobRecommend(job_id: str):
+    
+    # 빠른 collection 탐색을 위한 query str 값
+    keyword = request.args.get('keyword', None)
+
+    if keyword and job_id:
+    
+        # mongodb connection
+        db = main_db_con.get_con()
+        
+        # 요청한 IP에서 해당 job_id 따봉 기록이 있는가?
+        req_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+        chk = db['recommend_log'].find_one({"ip": req_ip, "job_id": job_id}, {"_id":0})
+        if chk:
+            return app.response_class(
+                status=406,
+                response=json.dumps({"error": f"이미 추천을 누르셨습니다!"}),
+                mimetype='application/json'
+            )
+        
+        # 따봉 기록이 없으면
+        target = db[f'{keyword}_jobs'].find_one({"id": job_id}, {"_id":0})
+        recommend = int(target['recommend']) + 1
+        db[f'{keyword}_jobs'].update({"id": job_id}, {"$set":{"recommend": recommend}})
+
+        return app.response_class(
+            status=201,
+            response=json.dumps({"message": f"{job_id} update clear!"}),
+            mimetype='application/json'
+        )
+
+    else:
+        return app.response_class(
+            status=400,
+            response=json.dumps({"error": f"요청 형태가 잘 못 되었습니다!"}),
+            mimetype='application/json'
+        )
+
+
+# 내 IP 기준 따봉누른 리스트 가져오기
+@app.route("/api/job/<string:job_id>", methods=['GET'])
+def getJobRecommend(job_id: str):
+    # mongodb connection
+    db = main_db_con.get_con()
+
+    # 요청한 IP
+    req_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    chk = db['recommend_log'].find({"ip": req_ip}, {"_id":0})
+
+    if chk:
+        return app.response_class(
+            status=200,
+            response=json.dumps({"data": chk}),
+            mimetype='application/json'
+        )
+    else:
+        return app.response_class(
+            status=400,
+            response=json.dumps({"error": "there is no any data"}),
+            mimetype='application/json'
+        )
 
 app.run(host='0.0.0.0', port=3000, debug=True)
