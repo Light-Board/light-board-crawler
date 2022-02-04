@@ -135,7 +135,10 @@ def updateJobRecommend(job_id: str):
         # 따봉 기록이 없으면
         target = db[f'{keyword}_jobs'].find_one({"id": job_id}, {"_id":0})
         recommend = int(target['recommend']) + 1
-        db[f'{keyword}_jobs'].update({"id": job_id}, {"$set":{"recommend": recommend}})
+        db[f'{keyword}_jobs'].update_one({"id": job_id}, {"$set":{"recommend": recommend}})
+
+        # 따봉 기록 만들기
+        db['recommend_log'].insert_one({"ip": req_ip, "job_id": job_id, "created_at": datetime.datetime.now()})
 
         return app.response_class(
             status=201,
