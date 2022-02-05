@@ -1,3 +1,23 @@
+:root {
+    --main-bg-color1: #E8D1C5;
+    --main-bg-color2: #EDDCD2;
+    --main-bg-color3: #FFF1E6;
+    --main-bg-color4: #F0EFEB;
+    --main-bg-color5: #EEDDD3;
+    --main-bg-color6: #EDEDE8;
+}
+
+body {
+    background-color: var(--main-bg-color4);
+}
+
+button, input[type=button] {
+    background-color: var(--main-bg-color1) !important;
+    border-color: var(--main-bg-color1) !important;
+    /* font-weight: bolder !important; */
+    box-shadow: 1px 1px 1px var(--main-bg-color3);
+}
+
 .form-control-borderless {
     border: none;
 }
@@ -11,7 +31,7 @@
 /* 
     keyword div
  */
- #div-keyword {
-     text-align: center;
-     margin-top: 2%;
- }
+#div-keyword {
+    text-align: center;
+    margin-top: 2%;
+}

@@ -14,6 +14,9 @@ app = Flask("SuperScrapper")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 main_db_con = DbCon() # db connection
 
+# =================================================== # 
+# api test (server health check)
+# =================================================== # 
 
 # BE TEST PING 
 @app.route("/api/ping", methods=['GET'])
@@ -45,6 +48,10 @@ def getKeywords():
         )
     return response
 
+
+# =================================================== # 
+# (main) search API
+# =================================================== # 
 
 # 메인 API, 검색 결과 얻어오기
 @app.route("/api/search", methods=['GET'])
@@ -111,6 +118,10 @@ def exportJobs():
         save_json(file_name, jobs)
         return send_file(f"{file_name}.json")
 
+
+# =================================================== # 
+# 따봉 API
+# =================================================== # 
 
 # 따봉 누르기
 @app.route("/api/job/<string:job_id>", methods=['PUT', 'PATCH'])
