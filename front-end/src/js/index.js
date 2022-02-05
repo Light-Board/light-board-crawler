@@ -1,133 +1,186 @@
 // ES5+
-'use strict';
+"use strict";
 
 // ======================================================================== //
-//                            IMPORT AREA 
+//                            IMPORT AREA
 // ======================================================================== //
-import { log } from './common/util.js';
-import { getAllKeyword, getAllFood, updateFoodClear } from './store/apis.js';
-
+import { log } from "./common/util.js";
+import { getAllKeyword, getSearchResults } from "./store/apis.js";
 
 // ======================================================================== //
-//                            DOM RENDER AREA 
+//                            DOM RENDER AREA
 // ======================================================================== //
 
-const getAllFoodRender = (res) => {
-    const targetDiv = document.getElementById('food-list-div');
-    targetDiv.innerHTML = "";
+let current_keyword = "";
 
-    for (let index = 0; index < res.length; index++) {
-        const is_clear = (res[index]['is_clear']) ? "먹었습니다!" : "먹어야 합니다!!"
-        targetDiv.innerHTML += `
-            <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                        JS
-                    </div>
-                    <div class="job-content">
-                        <h5 class="text-center text-md-left">${res[index]['order']}. ${res[index]['name']}</h5>
-                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                            <li class="mr-md-4">
-                                <i class="zmdi zmdi-pin mr-2"></i> ${res[index]['created_by']}
-                            </li>
-                            <li class="mr-md-4">
-                                <i class="zmdi zmdi-time mr-2"></i> ${res[index]['created_data']}
-                            </li>
-                        </ul>
-                    </div>
+const getJobRender = (data) => {
+  const targetDiv = document.getElementById("job-list-div");
+  targetDiv.innerHTML = "";
+
+  for (let index = 0; index < data.length; index++) {
+    const { title, company, location, link } = data[index];
+
+    targetDiv.innerHTML += `
+        <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-purple btn-h-outline-purple btn-a-outline-purple w-100 my-2 py-3 shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <h4 class="pt-3 text-170 text-600 text-purple-d1 letter-spacing">
+                        ${title}
+                    </h4>
                 </div>
-                <div class="job-right my-4 flex-shrink-0">
-                    <a target-data-order=${res[index]['order']} target-date-clear=${res[index]['is_clear']} class="food-list-clear-btn btn d-block w-100 d-sm-inline-block btn-light">
-                        ${is_clear}
-                    </a>
+
+                <ul class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+                    <li>
+                        <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+                        <span>
+                            <span class="text-110">${company}</span>
+                        </span>
+                    </li>
+                    <li class="mt-25">
+                        <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+                        <span class="text-110">
+                            ${location}
+                        </span>
+                    </li>
+
+                    <li class="mt-25">
+                        <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+                        <span class="text-110">
+                            ${link}
+                        </span>
+                    </li>
+                </ul>
+
+                <div class="col-12 col-md-4 text-center">
+                    <a href="#" class="f-n-hover btn btn-warning btn-raised px-4 py-25 w-75 text-600">Thumbs</a>
                 </div>
             </div>
-        `;
-    }
+        </div>`;
+  }
 };
 
-// Event 추가 함수
-const addClikEvent = (target) => {
-    const targetList = document.querySelectorAll(`.${target}`);
-    targetList.forEach((targetBtn) => {
-        targetBtn.addEventListener('click', (event) => {
+const getPaginationRender = (totalCount) => {
+  const pageCount = Math.ceil(totalCount / 20);
+  console.log("뀨뀨");
+  $("#pagination-demo").twbsPagination({
+    totalPages: pageCount,
+    visiblePages: 5,
+    prev: "‹",
+    next: "›",
+    first: "«",
+    last: "»",
+    initiateStartPageClick: false,
 
-            event.preventDefault();
-            const order = event.target.getAttribute('target-data-order');
-            const isClear = !(event.target.getAttribute('target-date-clear') === 'true');
-            updateFoodClear(order, isClear)
-                .then((res) => {
-                    log(res);
-                    return res.json();
-                })
-                .then((res) => {
-                    log(res);
-                    init();
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
+    onPageClick: function (event, page) {
+      getSearchResults(current_keyword, page)
+        .then((res) => {
+          log(res);
+          return res.json();
+        })
+        .then((res) => {
+          log(res);
+          const { data } = res;
+          getJobRender(data);
+        })
+        .catch((error) => {
+          console.error(error);
         });
-    });
-}
-
+    },
+  });
+};
 
 // 키워드 버튼 클릭 함수 추기
 const addKeywordBtnEvent = () => {
-    const keywordBtns = document.querySelectorAll('.keyword-btn');
-    keywordBtns.forEach(keywordBtn => {
-        keywordBtn.addEventListener('click', () => {
-            const keyword = keywordBtn.getAttribute('data-keyword');
-            window.location.href = `/api/search?keyword=${keyword}&page=1`
+  const keywordBtns = document.querySelectorAll(".keyword-btn");
+  keywordBtns.forEach((keywordBtn) => {
+    keywordBtn.addEventListener("click", () => {
+      const keyword = keywordBtn.getAttribute("data-keyword");
+      current_keyword = keyword;
+      getSearchResults(keyword, 1)
+        .then((res) => {
+          log(res);
+          return res.json();
+        })
+        .then((res) => {
+          log(res);
+
+          const { data, total_count } = res;
+          getJobRender(data);
+
+          if (total_count > 0) {
+            $(".paging-div").empty();
+            $(".paging-div").append(
+              '<ul id="pagination-demo" class="pagination-sm"></ul>'
+            );
+            getPaginationRender(total_count);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
         });
     });
-}
+  });
+};
 
 // ======================================================================== //
-//                            CALL API AND MAIN 
+//                            CALL API AND MAIN
 // ======================================================================== //
 
 const init = () => {
-    // 1. 푸드 리스트 다 가져와서 랜더링 
-    getAllFood()
-        .then((res) => {
-            log(res);
-            return res.json();
-        })
-        .then((res) => {
-            log(res);
-            getAllFoodRender(res);
+  // 1. Keyword 검색 이벤트 등록
+  $("#search-btn").click(function () {
+    const keyword = $("#keyword-input").val();
 
-            // 2. (1)로 동적으로 만들어준 해당 DOM에 이벤트 추가
-            addClikEvent('food-list-clear-btn');
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+    if (!keyword) return;
 
+    current_keyword = keyword;
+    getSearchResults(keyword, 1)
+      .then((res) => {
+        log(res);
+        return res.json();
+      })
+      .then((res) => {
+        log(res);
 
-    // 1. 키워드 리스트 다 가져오기 
-    getAllKeyword()
-        .then((res) => res.json())
-        .then((res) => {
-            const autoFillBtn = document.getElementById('keyword-options');
-            const keywordBtnDiv = document.getElementById('div-keyword');
-            for (let index = 0; index < res['data']['keywords'].length; index++) {
-                const keyword = res['data']['keywords'][index];
-                autoFillBtn.innerHTML += `
+        const { data, total_count } = res;
+        getJobRender(data);
+
+        if (total_count > 0) {
+          $(".paging-div").empty();
+          $(".paging-div").append(
+            '<ul id="pagination-demo" class="pagination-sm"></ul>'
+          );
+          getPaginationRender(total_count);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
+  // 2. 키워드 리스트 다 가져오기
+  getAllKeyword()
+    .then((res) => res.json())
+    .then((res) => {
+      const autoFillBtn = document.getElementById("keyword-options");
+      const keywordBtnDiv = document.getElementById("div-keyword");
+      for (let index = 0; index < res["data"]["keywords"].length; index++) {
+        const keyword = res["data"]["keywords"][index];
+        autoFillBtn.innerHTML += `
                     <option value="${keyword}">
                 `;
-                keywordBtnDiv.innerHTML += `
+        keywordBtnDiv.innerHTML += `
                     <input class="btn btn-success keyword-btn" type="button" data-keyword="${keyword}" value="${keyword}">
                 `;
-            }
+      }
 
-            addKeywordBtnEvent();
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+      addKeywordBtnEvent();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
-}
+  // 2. 메인 영역 로드
+};
 
 init();

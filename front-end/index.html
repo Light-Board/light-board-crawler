@@ -8,9 +8,13 @@
 
     <!-- Bootstrap-4.6.1 -->
     <script src="./public/library/jquery-3.6.0.slim.min.js"></script>
+    <script src="./public/library/jquery.twbsPagination.min.js"></script>
     <link rel="stylesheet" href="./public/library/bootstrap-4.6.1-dist/css/bootstrap.min.css" />
     <script src="./public/library/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
     <script src="./public/library/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Template -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- 내부 모듈 -->
     <link rel="stylesheet" href="./src/css/index.css" />
@@ -30,7 +34,7 @@
                         <!--end of col-->
 
                         <div class="col">
-                            <input class="form-control form-control-lg form-control-borderless" type="search"
+                            <input id="keyword-input" class="form-control form-control-lg form-control-borderless" type="search"
                                 list="keyword-options" placeholder="Search topics or keywords">
                             <datalist id="keyword-options">
                                 <!-- 여기에 키워드 리스트 들어옴 -->
@@ -40,7 +44,7 @@
 
 
                         <div class="col-auto">
-                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                            <button id="search-btn" class="btn btn-lg btn-success" type="button">Search</button>
                         </div>
                         <!--end of col-->
                     </div>
@@ -56,8 +60,55 @@
         <hr/>
     </div>
 
+    <!-- main board template (https://www.bootdey.com/snippets/view/Gradients-dashboard-cards) 참고 -->
+    <div id="main-board" class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Orders Received</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Orders Received</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>486</span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Orders Received</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>486</span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Orders Received</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2>
+                    <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- job list template -->
+    <div id="job-list-div" class="mt-5">
+    </div>
 
-    <div id="food-list-div" class="filter-result">
+    <!-- pagination -->
+    <div class="paging-div">
     </div>
 </body>
 <!-- 내부 모듈 -->
