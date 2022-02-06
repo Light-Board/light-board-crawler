@@ -40,7 +40,7 @@ python main.py
 
 이전에 노마드코더에서 학습을 통해 배운 것들과 실무에서 경험한 부분을 활용하여, Job Scrapper 프로젝트를 Product 단계와 같이 만들려고 노력한다면, 과정에서 개발자로서 많은 성장을 이뤄낼 수 있다고 생각하여 지원하게 되었습니다.
 
-목표는 ***“누구나 쉽게 시작할 수 있는, 올인원 배포용 크롤러 앱 보일러 플레이트 만들기!! With 도커라이징!”*** 이었습니다!! 재사용 가능성을 최대한 열어두고 모두와 같이 기능을 하나씩 쌓아 올리고 싶었습니다. 
+목표는 ***“누구나 쉽게 개발을 시작할 수 있는, 올인원 배포용 크롤러 앱 보일러 플레이트 만들기!! With 도커라이징!”*** 이었습니다!! 재사용 가능성을 최대한 열어두고 모두와 같이 기능을 하나씩 쌓아 올리고 싶었습니다. 
 
 
 ### 2. 서비스 소개
@@ -56,13 +56,25 @@ python main.py
 1. **중요 키워드 버튼**입니다. 
     - 사용자들이 자주 검색할 키워드들 7가지를 선정했고, 해당 키워드들에 대한 데이터는 DB에 미리 저장시켜놓았습니다. 그래서 해당 키워드들로 검색 시에는 크롤링을 하지 않아 사용자들에게 직업 검색 결과를 바로 제공할 수 있도록 했습니다.
 
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_01.png?raw=true)
+
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_04.png?raw=true)
+
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_02.png?raw=true)
+
+
 2. **페이지네이션**입니다.   
     - 저희는 위에 말씀드렸다시피 4개 사이트에서 데이터를 긁어오기 때문에 한 키워드에 대해 노출할 수 있는 데이터가 몇천건에 육박했습니다. 이를 한 화면에 보여주기에는 UI/UX 면에서 편리하지 않다고 생각하여, 한 페이지에 20개의 정보만 노출될 수 있도록 하였습니다.
+
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_03.png?raw=true)
 
 3. **추천**입니다.
     - 인기 있는 채용 정보에 대한 노출은 다른 사용자들에게 편리함을 제공할 수 있다고 생각하여 채용 정보들 중 추천(`Recommend`)을 많이 받은 Top3 정보에 대해, 메인 페이지 상단에 노출되도록 하였습니다.
     - ip값과 job id값 기반으로 중복 추천 처리를 막았습니다!
 
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_05.png?raw=true)
+
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_06.png?raw=true)
   
 
 #### 기술 소개
@@ -73,6 +85,11 @@ python main.py
 - FE
     - FE는 부트스트랩(html) + VanillaJavascript (바벨링 X webpack X lint X) 으로 최대한 ES5+기준으로 나름 구조화 해서 만들었습니다. 
     - css/js/html을 나누고 js는 공통함수 common, API통신과 응답만 주는 store, 그리고 indexjs에서 모듈화된 함수를 활용하는 방식으로 사용했고 fetch와 async await를 최대한 활용했습니다.
+    - 그리고 웹서버를 활용해 위 DOC 파일들을 Client에게 주었습니다!! nginx의 Conf를 제대로 활용해보는 경험이 너무나 좋았습니다.. 덤으로 404, 500 페이지를 비록 템플릿을 활용했지만, 웹서버 단에서 리턴해주는 방법을 활용했습니다!
+    
+    ![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_07.png?raw=true)
+
+    ![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_08.png?raw=true)
 
 - BE
     - Web Server로 nginx를 사용했고, WAS로서 flask를 활용해 rest api를 구축했습니다.
@@ -87,6 +104,8 @@ python main.py
 - Database - MongoDB
     - DB는 긁어온 데이터를 쉽게, 다양한 형태로 저장하고 활용하기 위해 nosql - mongodb를 선택해 빠르게 개발에 착수했습니다. 
     - 각 페이지에서 부여하는 게시물 “id 값 기반 + 사이트이름” 을 db id값으로 잡아서 indexing 했고, 많은양 의 데이터 중 서치 속도를 조금이나마 향상 시킬 수 있었습니다.
+
+    ![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/service_main_09.png?raw=true)
 
 - AWS
     - AWS를 한 번 도 써본 적 없는 저희는 서버도 호스팅 해버리자!! 그리고 보여주자!! 라는 일념으로 AWS를 1월 30일에 최초 회원가입해 EC2에 프리티어 인스턴스를 만들었습니다!! 그리고 인바운드 설정을 해매며 어찌 저찌 하고 난 뒤 공짜 도메인을 통해 DNS 설정까지 마무리 했습니다!! -> 도메인 네임은 [한국:내도메인](https://xn--220b31d95hq8o.xn--3e0b707e/) 이라는 곳을 활용했습니다!! 
@@ -133,17 +152,24 @@ python main.py
 
 6. FE는 역시 어려워
     - 디자이너님은 신이십니다.
-    - 나름 최대한 '관심사의 분리와 SPA'에 초점을 맞췃습니다.. 결국 조금 주먹 구구식이 된게 아쉽습니다.
+    - 동적으로 랜더링한 DOM object에 동적으로 EVENT를 바인딩하고 컨트롤하는 것이 어려웠습니다!
+    - 나름 최대한 '관심사의 분리와 SPA'에 초점을 맞췃습니다.. 결국 조금 주먹 구구식이 된게 아쉽습니다. 
 
 ### 4. 앞으로 계획
 
-- 저희는 해당 프로젝트를 개발 진행하면서 공부해야할 방향들이 명확해졌는데, 크게 Python, AWS, Docker  3가지 였던 것 같습니다. 
 
-- Python이라는 언어에 대해서 
+약 2주간 해당 프로젝트를 친구와 함께 진행했는데요.
 
+개발 진행하면서 개발 개념과 실력의 한계를 절실히 깨달으면서 앞으로 공부해야할 방향들이 더욱 명확해 지더라고요! “심플 노마드 크롤러 프로젝트!” 부터 여기까지 깨달음을 얻을 지 몰랐습니다. Clone code 방식으로 시작해 리뷰와 리팩토링을 하며 진짜 일취월장 했습니다. 항상 노마드 코더 덕분에 많은 것을 얻어 갈 수 있었어요!
 
+프로젝트를 진행하면서 앞으로의 계획도 정해졌는데요~!
 
-감사합니다.
+- 해당 프로젝트를 좀 더 고도화할 예정입니다! (이대로 두기에는 조금 아쉬운 감이 없지 않아 있네요 ㅠㅠ)
+- 사용자들이 좀 더 편리하게 서비스를 사용할 수 있도록 초기 키워드 세팅을 동적으로 하고 데이터 초기화 부분을 좀 더 쉽게하려고 생각하고 있습니다 ㅎㅎ
+- 또한, FE 쪽에 바벨링, webpack, lint 를 적용하고 Vanila로 구성할 예정이고 Docker를 진행하면서 Kubernetes에 대해서도 알게 되었는데 추후에 Kuberentes를 적용하여 여러 컨테이너를 관리할 수 있도록 하면 좋겠다고 생각했습니다! (과정에서 헬스체크와 갑작스럽게 죽은 서버 관리, 모니터링 쪽에 대해서 추가적으로 다룰려고 생각하고 있습니다 ㅎㅎ)
+- 그리고 진짜 초기 목표였던 ***“누구나 쉽게 개발을 시작할 수 있는, 올인원 배포용 크롤러 앱 보일러 플레이트 만들기!! With 도커라이징!”*** 꼭 이룰 수 있도록 범용성과 개발자를 위한 초기 개발 환경을 꼭 달성할 것입니!!
+
+감사합니다!!
 
 ---
 ## Daily ToDo
