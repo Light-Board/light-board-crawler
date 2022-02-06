@@ -13,6 +13,42 @@ import { getAllKeyword, getAllKeywordRank, getSearchResults, updateRecommend } f
 
 let current_keyword = "";
 
+
+// 키워드 랭킹 -> 탬플릿 랜더링
+const renderRank = (res) => {
+  // 7개 키워드, 나타낼 수 있는 컬러 bg-c-blue, bg-c-green, bg-c-yellow, bg-c-pink
+  const colorClassList = ["bg-c-pink", "bg-c-pink", "bg-c-blue", "bg-c-blue", "bg-c-green", "bg-c-green", "bg-c-yellow"]
+  const target = document.getElementById("main-board");
+  
+  // html setting
+  let renderResult = ""; // string (html)
+  for (let index = 0; index < res['data'].length; index++) {
+    const { company, id, keyword, link, location, recommend, title} = res['data'][index];
+    renderResult += `
+      <div class="col-md-4 col-xl-3">
+        <div class="card ${colorClassList[index]} order-card">
+            <div class="card-block">
+                <h6 class="m-b-20">${title}</h6>
+                <h5 class="m-b-20">${keyword}</h5>
+                <h2 class="text-right">
+                  <i class="fa fa-heart f-left"></i>
+                  <span>${recommend}</span>
+                </h2>
+                <p class="m-b-0">
+                  ${location}
+                  <span class="f-right">${company}</span>
+                </p>
+                <a href="${link}" target="_blank">SEE DETAILS</a>
+            </div>
+        </div>
+      </div>
+    `;
+  }
+
+  target.innerHTML = renderResult;
+};
+
+
 // 검색 후(키워드 클릭 후) 결과 랜더링
 const getJobRender = (data) => {
   const targetDiv = document.getElementById("job-list-div");
@@ -200,7 +236,7 @@ const init = () => {
     .then((res) => res.json())
     .then((res) => {
       // 3-1. DOM 랜더링
-      
+      renderRank(res);
     })
     .catch((error) => console.error(error));
 }
