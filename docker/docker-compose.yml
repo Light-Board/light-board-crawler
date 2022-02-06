@@ -16,7 +16,7 @@ services:
     depends_on:
       - flask-api
   flask-api:
-    image: flask-api
+    image: nuung/flask-api
     ports:
       - "3000:3000"
     environment:
