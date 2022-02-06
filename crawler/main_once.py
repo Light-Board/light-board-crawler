@@ -38,7 +38,7 @@ if __name__ == "__main__":
             pass
 
         # db insert
-        main_db_con.insert_crawler_total_data(keyword, [stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs])
+        main_db_con.insert_crawler_new_data(keyword, [stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs])
         all_jobs += (stack_overflow_jobs + indeed_jobs + dice_jobs + flexjobs_jobs)
         time.sleep(1)
 
