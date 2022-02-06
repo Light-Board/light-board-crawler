@@ -17,7 +17,7 @@ let current_keyword = "";
 // 키워드 랭킹 -> 탬플릿 랜더링
 const renderRank = (res) => {
   // 7개 키워드, 나타낼 수 있는 컬러 bg-c-blue, bg-c-green, bg-c-yellow, bg-c-pink
-  const colorClassList = ["bg-c-pink", "bg-c-pink", "bg-c-blue", "bg-c-blue", "bg-c-green", "bg-c-green", "bg-c-yellow"]
+  const colorClassList = ["bg-c-pink", "bg-c-blue", "bg-c-green"]
   const target = document.getElementById("main-board");
   
   // html setting
