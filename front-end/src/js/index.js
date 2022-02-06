@@ -96,6 +96,11 @@ const getJobRender = (data) => {
   } // end of for
 
   targetDiv.innerHTML = renderResult
+
+  // 검색했으면 이동 시켜야지
+  const location = document.querySelector("#job-list-div").offsetTop;
+  window.scrollTo({top:location, behavior:'smooth'});
+
   // 검색 후 동적으로 추가된 job list에 updateRecommend Event 추가 
   addUpdateRecommendEvent()
 };
