@@ -5,7 +5,7 @@
 //                            IMPORT AREA
 // ======================================================================== //
 import { log } from "./common/util.js";
-import { getAllKeyword, getSearchResults, updateRecommend } from "./store/apis.js";
+import { getAllKeyword, getAllKeywordRank, getSearchResults, updateRecommend } from "./store/apis.js";
 
 // ======================================================================== //
 //                            DOM RENDER AREA
@@ -194,6 +194,15 @@ const init = () => {
       addKeywordBtnEvent();
     })
     .catch((error) => console.error(error));
-};
+
+  // 3. 키워드 리스트의 추천 수 랭크 1등 가져와서 랜더링
+  getAllKeywordRank()
+    .then((res) => res.json())
+    .then((res) => {
+      // 3-1. DOM 랜더링
+      
+    })
+    .catch((error) => console.error(error));
+}
 
 init();

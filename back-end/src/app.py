@@ -7,6 +7,7 @@ import pymongo
 # python lib
 from flask import (Flask, request, send_file, json, jsonify)
 from flask_cors import CORS
+from operator import itemgetter
 import datetime
 
 # from pathlib import Path
@@ -72,6 +73,9 @@ def getKeywordsRank():
                 results.append(r)
         except Exception:
             continue
+
+    # 다시 전체를 추천 순으로 변경
+    results = sorted(results, key=itemgetter('recommend'))
 
     return app.response_class(
         status=200,
