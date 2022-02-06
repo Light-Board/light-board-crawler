@@ -65,7 +65,7 @@ export const getSearchResults = async (keyword, page) => {
  */
 export const updateRecommend = async (jobId, keyword) => {
   const res = await fetch(
-    `${server_name}/api/job/${jobId}?keyword=${keyword}>`,
+    `${server_name}/api/job/${jobId}?keyword=${keyword}`,
     {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, cors, *same-origin

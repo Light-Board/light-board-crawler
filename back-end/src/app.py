@@ -20,8 +20,6 @@ from search import crawler
 # static
 app = Flask("SuperScrapper")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-cors = CORS(app, resources={r"/api/*/*": {"origins": "*"}})
-cors = CORS(app, resources={r"/api/*/*/*": {"origins": "*"}})
 main_db_con = DbCon() # db connection
 
 # =================================================== # 
@@ -157,7 +155,7 @@ def updateJobRecommend(job_id: str):
         if chk:
             return app.response_class(
                 status=406,
-                response=json.dumps({"error": f"이미 추천을 누르셨습니다!"}),
+                response=json.dumps({"error": f"you already recommended!"}),
                 mimetype='application/json'
             )
         
@@ -178,7 +176,7 @@ def updateJobRecommend(job_id: str):
     else:
         return app.response_class(
             status=400,
-            response=json.dumps({"error": f"요청 형태가 잘 못 되었습니다!"}),
+            response=json.dumps({"error": f"url from was wrong!"}),
             mimetype='application/json'
         )
 
@@ -191,7 +189,7 @@ def getJobRecommend(job_id: str):
 
     # 요청한 IP
     req_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    chk = db['recommend_log'].find({"ip": req_ip}, {"_id":0})
+    chk = db['recommend_log'].find({"ip": req_ip, "job_id": job_id}, {"_id":0})
 
     if chk:
         return app.response_class(
