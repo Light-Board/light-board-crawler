@@ -36,19 +36,19 @@ if __name__ == "__main__":
                 main_logger.set_start_log(f"main : {keyword} crawl total page start")
                 stack_overflow_last_page = stack_overflow_crawler.get_last_page(keyword)
                 main_logger.set_log(f"S.O lastpage : {stack_overflow_last_page}")
-                stack_overflow_jobs = stack_overflow_crawler.extract_jobs(keyword, 2)
+                stack_overflow_jobs = stack_overflow_crawler.extract_jobs(keyword, stack_overflow_last_page)
 
                 indeed_last_page = indeed_crawler.get_last_page(keyword)
                 main_logger.set_log(f"Indeed lastpage : {indeed_last_page}")
-                indeed_jobs = indeed_crawler.extract_jobs(keyword, 2)
+                indeed_jobs = indeed_crawler.extract_jobs(keyword, indeed_last_page)
 
                 dice_last_page = dice_crawler.get_last_page(keyword)
                 main_logger.set_log(f"Dice lastpage : {dice_last_page}")
-                dice_jobs = dice_crawler.extract_jobs(keyword, 2)
+                dice_jobs = dice_crawler.extract_jobs(keyword, dice_last_page)
 
                 flexjobs_last_page = flexjobs_crawler.get_last_page(keyword)
                 main_logger.set_log(f"FlexJobs lastpage : {flexjobs_last_page}")
-                flexjobs_jobs = flexjobs_crawler.extract_jobs(keyword, 2)
+                flexjobs_jobs = flexjobs_crawler.extract_jobs(keyword, flexjobs_last_page)
             except Exception:
                 continue
             

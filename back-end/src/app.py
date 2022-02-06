@@ -1,3 +1,6 @@
+import sys
+# 서버 상 path
+sys.path.append("/home/ubuntu/projects/light-board-crawler/crawler")
 
 # module 
 from util.file_util import (save_csv, save_json)
@@ -8,6 +11,8 @@ import pymongo
 from flask import (Flask, request, send_file, json, jsonify)
 from flask_cors import CORS
 import datetime
+
+from search import crawler
 
 # static
 app = Flask("SuperScrapper")
@@ -76,10 +81,16 @@ def searchJobs():
         )
 
     # 1-2. 존재하지 않는다면, 크롤링 진행 후 긁어온 데이터 DB 저장하고 반환하기 -> 흠 이건 너무 작업이 해비함
-    else: 
+    else:
+        results = crawler(keyword)
+        result_list = list(results)
+
         response = app.response_class(
-            status=400,
-            response=json.dumps({"error": f"there is no any data"}),
+            status=200,
+            response=json.dumps({
+                "total_count": len(result_list),
+                "data": result_list
+            }),
             mimetype='application/json'
         )
 
