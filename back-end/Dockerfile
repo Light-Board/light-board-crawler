@@ -7,11 +7,11 @@ WORKDIR /app
 COPY . .
 
 # install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \ 
+    pip install --no-cache-dir -r requirements.txt
 
 # tell the port number the container should expose
 EXPOSE 3000
 
 # run the command
-CMD ["pip", "install", "--upgrade", "pip"]
 CMD ["python", "-u", "./src/app.py"]
