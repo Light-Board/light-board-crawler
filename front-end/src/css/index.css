@@ -1,21 +1,25 @@
 :root {
-    --main-bg-color1: #E8D1C5;
-    --main-bg-color2: #EDDCD2;
-    --main-bg-color3: #FFF1E6;
-    --main-bg-color4: #F0EFEB;
-    --main-bg-color5: #EEDDD3;
-    --main-bg-color6: #EDEDE8;
+    --main-bg-color1: #7371FC;
+    --main-bg-color2: #A594F9;
+    --main-bg-color3: #CDC1FF;
+    --main-bg-color4: #F5EFFF;
+    --main-bg-color5: #e0dce6;
 }
 
 body {
-    background-color: var(--main-bg-color4);
+    background-color: var(--main-bg-color5) !important;
 }
 
 button, input[type=button] {
-    background-color: var(--main-bg-color1) !important;
-    border-color: var(--main-bg-color1) !important;
+    background-color: var(--main-bg-color2) !important;
+    border-color: var(--main-bg-color2) !important;
     /* font-weight: bolder !important; */
     box-shadow: 1px 1px 1px var(--main-bg-color3);
+}
+
+button:focus, input[type=button]:focus {
+    box-shadow: 0 0 0 0.2rem var(--main-bg-color4) !important;
+
 }
 
 .form-control-borderless {
@@ -28,155 +32,204 @@ button, input[type=button] {
     box-shadow: none;
 }
 
-/* 
-    keyword
- */
- #div-keyword {
-     text-align: center;
-     margin-top: 2%;
- }
-
- /*
-    job-list-div
- */
-body {
-    margin-top:20px;
-    background-color: #e4e6e9;
-    color: #41464d;
+/**************************
+동적으로 keyword 버튼 리스트
+**************************/
+#div-keyword {
+    text-align: center;
+    margin-top: 2%;
 }
+
+#div-keyword>input {
+    margin: 2px;
+}
+
+/**************************
+동적으로 검색 결과 div 리스트
+**************************/
+
+#job-list-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#job-list-div>div {
+    width: 80% !important;
+}
+
+.job--recommend {
+    background-color: var(--main-bg-color2) !important;
+    color: #fff !important;
+}
+
+.job--desc {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/**************************
+전세영 개새끼 아래 CSS 수듄
+**************************/
 
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
+
 .btn-a-brc-tp:not(.disabled):not(:disabled).active, .btn-brc-tp, .btn-brc-tp:focus:not(:hover):not(:active):not(.active):not(.dropdown-toggle), .btn-h-brc-tp:hover, .btn.btn-f-brc-tp:focus, .btn.btn-h-brc-tp:hover {
     border-color: transparent;
 }
+
 .btn-outline-blue {
     color: #0d6ce1;
     border-color: #5a9beb;
     background-color: transparent;
 }
+
 .btn {
     cursor: pointer;
     position: relative;
     z-index: auto;
     border-radius: .175rem;
-    transition: color .15s,background-color .15s,border-color .15s,box-shadow .15s,opacity .15s;
+    transition: color .15s, background-color .15s, border-color .15s, box-shadow .15s, opacity .15s;
 }
+
 .border-2 {
-    border-width: 2px!important;
-    border-style: solid!important;
+    border-width: 2px !important;
+    border-style: solid !important;
     border-color: transparent;
 }
+
 .bgc-white {
-    background-color: #fff!important;
+    background-color: #fff !important;
 }
 
 
 .text-green-d1 {
-    color: #277b5d!important;
+    color: #277b5d !important;
 }
+
 .letter-spacing {
-    letter-spacing: .5px!important;
+    letter-spacing: .5px !important;
 }
+
 .font-bolder, .text-600 {
-    font-weight: 600!important;
+    font-weight: 600 !important;
 }
+
 .text-170 {
-    font-size: 1.7em!important;
+    font-size: 1.7em !important;
 }
 
 .text-purple-d1 {
-    color: #6d62b5!important;
+    color: var(--main-bg-color3) !important;
 }
 
 .text-primary-d1 {
-    color: #276ab4!important;
+    color: #276ab4 !important;
 }
+
 .text-secondary-d1 {
-    color: #5f718b!important;
+    color: #5f718b !important;
 }
+
 .text-180 {
-    font-size: 1.8em!important;
+    font-size: 1.8em !important;
 }
+
 .text-150 {
-    font-size: 1.5em!important;
+    font-size: 1.5em !important;
 }
+
 .text-danger-m3 {
-    color: #e05858!important;
+    color: #e05858 !important;
 }
+
 .rotate-45 {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
 .position-l {
     left: 0;
 }
+
 .position-b, .position-bc, .position-bl, .position-br, .position-center, .position-l, .position-lc, .position-r, .position-rc, .position-t, .position-tc, .position-tl, .position-tr {
-    position: absolute!important;
+    position: absolute !important;
     display: block;
 }
+
 .mt-n475, .my-n475 {
-    margin-top: -2.5rem!important;
+    margin-top: -2.5rem !important;
 }
+
 .ml-35, .mx-35 {
-    margin-left: 1.25rem!important;
+    margin-left: 1.25rem !important;
 }
 
 .text-dark-l1 {
-    color: #56585e!important;
+    color: #56585e !important;
 }
+
 .text-90 {
-    font-size: .9em!important;
+    font-size: .9em !important;
 }
+
 .text-left {
-    text-align: left!important;
+    text-align: left !important;
 }
 
 .mt-25, .my-25 {
-    margin-top: .75rem!important;
+    margin-top: .75rem !important;
 }
 
 .text-110 {
-    font-size: 1.1em!important;
+    font-size: 1.1em !important;
 }
 
-.deleted-text{
-text-decoration:line-through;;    
+.deleted-text {
+    text-decoration: line-through;
 }
 
 /*
     main board
-*/    
+*/
 .order-card {
     color: #fff;
 }
 
 .bg-c-blue {
-    background: linear-gradient(45deg,#4099ff,#73b4ff);
+    background: linear-gradient(45deg, #4099ff, #73b4ff);
 }
+
 .bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    background: linear-gradient(45deg, #2ed8b6, #59e0c5);
 }
+
 .bg-c-yellow {
-    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    background: linear-gradient(45deg, #FFB64D, #ffcb80);
 }
+
 .bg-c-pink {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
+    background: linear-gradient(45deg, #FF5370, #ff869a);
 }
 
 .card {
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
     border: none;
     margin-bottom: 30px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
+
 .card .card-block {
     padding: 25px;
 }
+
 .order-card i {
     font-size: 26px;
 }
@@ -184,6 +237,7 @@ text-decoration:line-through;;
 .f-left {
     float: left;
 }
+
 .f-right {
     float: right;
 }
@@ -191,11 +245,10 @@ text-decoration:line-through;;
 /*
     paging
 */
-.paging-div { 
+.paging-div {
     padding: 15px 0 5px 10px;
-    display: table; 
-    margin-left: auto; 
-    margin-right: auto; 
-    text-align: center; 
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
-
