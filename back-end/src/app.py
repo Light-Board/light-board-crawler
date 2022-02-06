@@ -68,7 +68,8 @@ def getKeywordsRank():
         try:
             result = db[f"{keyword}_jobs"].find({},{"_id":0}).sort("recommend", pymongo.DESCENDING).limit(1)
             for r in result:
-                results.append(r) 
+                r['keyword'] = keyword
+                results.append(r)
         except Exception:
             continue
 
