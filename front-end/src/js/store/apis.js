@@ -4,7 +4,7 @@
 // ======================================================================== //
 //                            API FETCH LIST
 // ======================================================================== //
-const DEBUG = true;
+const DEBUG = false;
 const server_name = DEBUG
   ? "http://localhost:3000"
   : "http://nomad-crawl.kro.kr";
