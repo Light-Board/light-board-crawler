@@ -75,7 +75,7 @@ def getKeywordsRank():
             continue
 
     # 다시 전체를 추천 순으로 변경
-    results = sorted(results, key=itemgetter('recommend'), reverse=True)
+    results = sorted(results, key=itemgetter('recommend')).reverse()
 
     return app.response_class(
         status=200,
