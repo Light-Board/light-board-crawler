@@ -62,7 +62,7 @@ button:focus, input[type=button]:focus {
 
 .job--desc--head {
     color: var(--main-bg-color0);
-} 
+}
 
 .job--recommend {
     background-color: var(--main-bg-color2) !important;
@@ -251,4 +251,26 @@ button:focus, input[type=button]:focus {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+.paging-div>ul>li>a {
+}
+
+.page-item.first,
+.page-item.last {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.page-item.first>a,
+.page-item.last>a {
+    border-radius: 100px;
+}
+
+.page-item.prev>a {
+    border-radius: 100% 0 0 100%;
+}
+
+.page-item.next>a {
+    border-radius: 0 100% 100% 0;   
 }
