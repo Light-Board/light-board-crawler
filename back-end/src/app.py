@@ -1,6 +1,3 @@
-import sys
-# 서버 상 path
-sys.path.append("/home/ubuntu/projects/light-board-crawler/crawler")
 
 # module 
 from util.file_util import (save_csv, save_json)
@@ -12,6 +9,12 @@ from flask import (Flask, request, send_file, json, jsonify)
 from flask_cors import CORS
 import datetime
 
+# from pathlib import Path
+# import sys
+
+# 다른 APP path
+# BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# sys.path.append(f"{BASE_DIR}/crawler")
 from search import crawler
 
 # static
