@@ -43,18 +43,38 @@ def testPing():
 def getKeywords():
     try:
         result = main_db_con.get_init_data("init_keyword")
-        response = app.response_class(
+        return app.response_class(
             status=200,
             response=json.dumps({"data": result}),
             mimetype='application/json'
         )
     except Exception as e:
-        response = app.response_class(
+        return app.response_class(
             status=500,
             response=json.dumps({"error": f"server error: {e}"}),
             mimetype='application/json'
         )
-    return response
+
+
+# 등록된 키워드 기반, 각 키워드 추천 상위 권 1위 가져오기
+@app.route("/api/keyword/rank", methods=['GET'])
+def getKeywordsRank():
+    keywords = main_db_con.get_init_data("init_keyword")
+    
+    # mongodb connection
+    db = main_db_con.get_con()
+    results = list()
+    for keyword in keywords['keywords']:
+        result = db[f"{keyword}_jobs"].find({},{"_id":0}).sort("recommend", pymongo.DESCENDING).limit(1)
+        for r in result:
+            results.append(r) 
+
+    return app.response_class(
+        status=200,
+        response=json.dumps({"data": results}),
+        mimetype='application/json'
+    )    
+
 
 
 # =================================================== # 

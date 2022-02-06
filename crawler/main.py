@@ -15,7 +15,7 @@ if __name__ == "__main__":
     
     # static
     DEBUG = True
-    FIXED_KEYWORD = ["python", "php", "java", "golang", "nest", "spring", "react", "vue"]
+    FIXED_KEYWORD = ["python", "php", "java", "golang", "spring", "react", "vue"]
     main_logger = Logging("main") if DEBUG else Logging("main DEBUG")
     main_db_con = DbCon(main_logger)                               # db connection
     if not DEBUG: main_db_con.init_default_keyword(FIXED_KEYWORD)  # init keyword 
