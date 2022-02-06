@@ -1,4 +1,5 @@
 :root {
+    --main-bg-color0: #202041;
     --main-bg-color1: #7371FC;
     --main-bg-color2: #A594F9;
     --main-bg-color3: #CDC1FF;
@@ -13,7 +14,6 @@ body {
 button, input[type=button] {
     background-color: var(--main-bg-color2) !important;
     border-color: var(--main-bg-color2) !important;
-    /* font-weight: bolder !important; */
     box-shadow: 1px 1px 1px var(--main-bg-color3);
 }
 
@@ -60,9 +60,14 @@ button:focus, input[type=button]:focus {
     width: 80% !important;
 }
 
+.job--desc--head {
+    color: var(--main-bg-color0);
+} 
+
 .job--recommend {
     background-color: var(--main-bg-color2) !important;
     color: #fff !important;
+    cursor: pointer !important;
 }
 
 .job--desc {
@@ -74,9 +79,9 @@ button:focus, input[type=button]:focus {
 전세영 개새끼 아래 CSS 수듄
 **************************/
 
-.btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-}
+/* .btn:not(:disabled):not(.disabled) {
+    cursor: auto !important;
+} */
 
 .btn-a-brc-tp:not(.disabled):not(:disabled).active, .btn-brc-tp, .btn-brc-tp:focus:not(:hover):not(:active):not(.active):not(.dropdown-toggle), .btn-h-brc-tp:hover, .btn.btn-f-brc-tp:focus, .btn.btn-h-brc-tp:hover {
     border-color: transparent;
@@ -89,7 +94,6 @@ button:focus, input[type=button]:focus {
 }
 
 .btn {
-    cursor: pointer;
     position: relative;
     z-index: auto;
     border-radius: .175rem;
@@ -121,10 +125,6 @@ button:focus, input[type=button]:focus {
 
 .text-170 {
     font-size: 1.7em !important;
-}
-
-.text-purple-d1 {
-    color: var(--main-bg-color3) !important;
 }
 
 .text-primary-d1 {

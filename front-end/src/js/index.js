@@ -16,51 +16,50 @@ let current_keyword = "";
 // 검색 후(키워드 클릭 후) 결과 랜더링
 const getJobRender = (data) => {
   const targetDiv = document.getElementById("job-list-div");
-  targetDiv.innerHTML = "";
 
+  let renderResult = ""; // string (html)
   for (let index = 0; index < data.length; index++) {
     const { title, company, location, link, id } = data[index];
 
-    targetDiv.innerHTML += `
-        <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-purple btn-h-outline-purple btn-a-outline-purple w-100 my-2 py-3 shadow-sm">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-4">
-                    <h4 class="pt-3 text-170 text-600 text-purple-d1 letter-spacing">
-                        ${title}
-                    </h4>
-                </div>
+    renderResult += `
+      <div class="d-style btn bgc-white my-2 py-3 shadow-sm">
+          <div class="row align-items-center">
+              <div class="col-12 col-md-4">
+                  <h4 class="job--desc--head text-600">
+                      ${title}
+                  </h4>
+              </div>
 
-                <ul class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
-                    <li>
-                        <label class="job--desc">Company: </label>
-                        <span>
-                            <span class="text-110">${company}</span>
-                        </span>
-                    </li>
-                    <li class="mt-25">
-                        <label class="job--desc">Company Location: </label>
-                        <span class="text-110">
-                            ${location}
-                        </span>
-                    </li>
+              <ul class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+                  <li>
+                      <label class="job--desc">Company: </label>
+                      <span>
+                          <span class="text-110">${company}</span>
+                      </span>
+                  </li>
+                  <li class="mt-25">
+                      <label class="job--desc">Company Location: </label>
+                      <span class="text-110">
+                          ${location}
+                      </span>
+                  </li>
 
-                    <li class="mt-25">
-                        <label class="job--desc">See details: </label>
-                        <span class="text-110">
-                            ${link}
-                        </span>
-                    </li>
-                </ul>
+                  <li class="mt-25">
+                      <a class="job--desc" href="${link}" target="_blank">See details</a>
+                  </li>
+              </ul>
 
-                <div class="col-12 col-md-4 text-center">
-                    <button class="btn job--recommend" target-data-id="${id}" target-data-keyword="${String(current_keyword).trim()}">
-                      Recommend
-                    </button>
-                </div>
-            </div>
-        </div>`;
+              <div class="col-12 col-md-4 text-center">
+                  <button class="btn job--recommend" target-data-id="${id}" target-data-keyword="${String(current_keyword).trim()}">
+                    Recommend
+                  </button>
+              </div>
+          </div>
+      </div>
+    `;
   } // end of for
 
+  targetDiv.innerHTML = renderResult
   // 검색 후 동적으로 추가된 job list에 updateRecommend Event 추가 
   addUpdateRecommendEvent()
 };
@@ -79,18 +78,12 @@ const getPaginationRender = (totalCount) => {
 
     onPageClick: function (event, page) {
       getSearchResults(current_keyword, page)
+        .then((res) => res.json())
         .then((res) => {
-          log(res);
-          return res.json();
-        })
-        .then((res) => {
-          log(res);
           const { data } = res;
           getJobRender(data);
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch((error) => console.error(error));
     },
   });
 };
@@ -118,9 +111,14 @@ const addUpdateRecommendEvent = () => {
       updateRecommend(jobId, keyword)
         .then((res) => res.json())
         .then((res) => {
-          log(res)
+          Swal.fire('SUCCESS', `you recommended well! job id is ${res['message']}`, 'success');
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          if (String(error).includes('406')) {
+            Swal.fire('ERROR', `you already recommended`, 'error');
+          }
+          else console.error(error);
+        });
     })
   });
 };
@@ -129,6 +127,11 @@ const addUpdateRecommendEvent = () => {
 const searchEvent = (keyword) => {
   if (!keyword) return;
   current_keyword = keyword;
+
+  // 1-1. 검색 누르자 마자 로딩 창 보여주기
+  document.getElementById("job-list-div").innerHTML = `
+    <img src="./public/images/loading_bar_gif.gif" width="25%" />
+  `;
 
   // 1-2. 검색 기록 가져오기, 1페이지 기준
   getSearchResults(keyword, 1)
