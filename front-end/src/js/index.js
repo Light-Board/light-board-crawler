@@ -19,7 +19,7 @@ const getJobRender = (data) => {
   targetDiv.innerHTML = "";
 
   for (let index = 0; index < data.length; index++) {
-    const { title, company, location, link } = data[index];
+    const { title, company, location, link, id } = data[index];
 
     targetDiv.innerHTML += `
         <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-purple btn-h-outline-purple btn-a-outline-purple w-100 my-2 py-3 shadow-sm">
@@ -53,13 +53,16 @@ const getJobRender = (data) => {
                 </ul>
 
                 <div class="col-12 col-md-4 text-center">
-                    <button class="btn job--recommend">
+                    <button class="btn job--recommend" target-data-id="${id}" target-data-keyword="${String(current_keyword).trim()}">
                       Recommend
                     </button>
                 </div>
             </div>
         </div>`;
-  }
+  } // end of for
+
+  // 검색 후 동적으로 추가된 job list에 updateRecommend Event 추가 
+  addUpdateRecommendEvent()
 };
 
 // 페이지 네이션 
@@ -105,17 +108,21 @@ const addKeywordBtnEvent = () => {
 
 // 동적으로 추가된 job list에 updateRecommend Event 추가 
 const addUpdateRecommendEvent = () => {
-
   const recommendBtns = document.querySelectorAll('.job--recommend');
 
-  // 1. job id, keyword 가져오기 
-  updateRecommend(jobId, keyword)
-    .then((res) => res.json())
-    .then((res) => {
-      log(res)
-    }
-    )
-    .catch((error) => console.error(error));
+  recommendBtns.forEach(recommendBtn => {
+    recommendBtn.addEventListener('click', (event) => {
+      const jobId = recommendBtn.getAttribute('target-data-id');
+      const keyword = recommendBtn.getAttribute('target-data-keyword');
+      // 1. job id, keyword 가져오기 
+      updateRecommend(jobId, keyword)
+        .then((res) => res.json())
+        .then((res) => {
+          log(res)
+        })
+        .catch((error) => console.error(error));
+    })
+  });
 };
 
 // 검색 액션 추가, Keyword 검색 이벤트 등록

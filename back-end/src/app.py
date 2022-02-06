@@ -20,6 +20,8 @@ from search import crawler
 # static
 app = Flask("SuperScrapper")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*/*/*": {"origins": "*"}})
 main_db_con = DbCon() # db connection
 
 # =================================================== # 
