@@ -13,4 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 3000
 
 # run the command
+CMD ["pip", "install", "--upgrade", "pip"]
 CMD ["python", "-u", "./src/app.py"]
