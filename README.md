@@ -22,6 +22,7 @@ pip install -r requirements_v(최신).txt
 
 ```bash
 # 프로젝트 경로 이동 - main.py 실행 
+# 참고로 BE와 Cralwer 가상환경은 분리되어 있음!
 source .venv/bin/activate
 python main.py
 ```
