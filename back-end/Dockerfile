@@ -7,7 +7,8 @@ WORKDIR /app
 COPY . .
 
 # install dependencies
-RUN pip install --upgrade pip \ 
+RUN apt-get install openssl openssl-devel \
+    pip install --upgrade pip \ 
     pip install --no-cache-dir -r requirements.txt
 
 # tell the port number the container should expose
