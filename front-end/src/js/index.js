@@ -77,6 +77,8 @@ const getPaginationRender = (totalCount) => {
     initiateStartPageClick: false,
 
     onPageClick: function (event, page) {
+
+      // 검색 액션 그대로 추가 
       getSearchResults(current_keyword, page)
         .then((res) => res.json())
         .then((res) => {

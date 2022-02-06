@@ -196,6 +196,14 @@ button:focus, input[type=button]:focus {
 /*
     main board
 */
+
+#main-board {
+    align-content: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0% !important;
+}
+
 .order-card {
     color: #fff;
 }
@@ -245,6 +253,11 @@ button:focus, input[type=button]:focus {
 /*
     paging
 */
+
+.pagination {
+    justify-content: center !important;
+}
+
 .paging-div {
     padding: 15px 0 5px 10px;
     display: table;
@@ -253,24 +266,35 @@ button:focus, input[type=button]:focus {
     text-align: center;
 }
 
+.paging-div>ul>li {
+    background-color: var(--main-bg-color5);
+}
+
+.page-item.active .page-link {
+    background-color: var(--main-bg-color1) !important;
+    border-color: var(--main-bg-color1) !important;
+}
+
 .paging-div>ul>li>a {
+    color: var(--main-bg-color1);
 }
 
 .page-item.first,
 .page-item.last {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .page-item.first>a,
 .page-item.last>a {
-    border-radius: 100px;
+    border: none;
+    border-radius: 50% !important;
 }
 
 .page-item.prev>a {
-    border-radius: 100% 0 0 100%;
+    border-radius: 50% 0 0 50%;
 }
 
 .page-item.next>a {
-    border-radius: 0 100% 100% 0;   
+    border-radius: 0 50% 50% 0;
 }
