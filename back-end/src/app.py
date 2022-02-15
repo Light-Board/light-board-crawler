@@ -218,7 +218,7 @@ def getJobRecommend(job_id: str):
 
     # 요청한 IP
     req_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    chk = db['recommend_log'].find({"ip": req_ip, "job_id": job_id}, {"_id":0})
+    chk = db['recommend_log'].find({"ip": req_ip, "job_id": job_id}, {"_id": 0})
 
     if chk:
         return app.response_class(
@@ -232,5 +232,6 @@ def getJobRecommend(job_id: str):
             response=json.dumps({"error": "there is no any data"}),
             mimetype='application/json'
         )
+
 
 app.run(host='0.0.0.0', port=3000, debug=True)
