@@ -187,6 +187,17 @@ python main.py
 감사합니다!!
 
 ---
+
+## RESULT
+
+
+![사진](https://github.com/Light-Board/light-board-crawler/blob/develop/front-end/public/images/노마드_크롤러콘테스트_준우수.png?raw=true)
+
+- 준우수 너무 감사합니다! 한돈 잘먹겠습니다!
+- https://nomadcoders.co/community/thread/1856 
+
+---
+
 ## Daily ToDo
 
 
